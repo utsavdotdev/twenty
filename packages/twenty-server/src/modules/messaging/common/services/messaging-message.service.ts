@@ -1,13 +1,11 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { DataSource, EntityManager } from 'typeorm';
+import { Any, DataSource, EntityManager } from 'typeorm';
 import { v4 } from 'uuid';
 
-import { WorkspaceDataSourceService } from 'src/engine/workspace-datasource/workspace-datasource.service';
 import { ObjectRecord } from 'src/engine/workspace-manager/workspace-sync-metadata/types/object-record';
 import { InjectObjectMetadataRepository } from 'src/engine/object-metadata-repository/object-metadata-repository.decorator';
 import { ConnectedAccountWorkspaceEntity } from 'src/modules/connected-account/standard-objects/connected-account.workspace-entity';
-import { MessageChannelMessageAssociationRepository } from 'src/modules/messaging/common/repositories/message-channel-message-association.repository';
 import { MessageChannelRepository } from 'src/modules/messaging/common/repositories/message-channel.repository';
 import { MessageThreadRepository } from 'src/modules/messaging/common/repositories/message-thread.repository';
 import { MessageRepository } from 'src/modules/messaging/common/repositories/message.repository';
@@ -17,17 +15,20 @@ import { MessageThreadWorkspaceEntity } from 'src/modules/messaging/common/stand
 import { MessageWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message.workspace-entity';
 import { GmailMessage } from 'src/modules/messaging/message-import-manager/drivers/gmail/types/gmail-message';
 import { MessagingMessageThreadService } from 'src/modules/messaging/common/services/messaging-message-thread.service';
+import { InjectWorkspaceRepository } from 'src/engine/twenty-orm/decorators/inject-workspace-repository.decorator';
+import { WorkspaceRepository } from 'src/engine/twenty-orm/repository/workspace.repository';
+import { InjectWorkspaceDatasource } from 'src/engine/twenty-orm/decorators/inject-workspace-datasource.decorator';
+import { WorkspaceDataSource } from 'src/engine/twenty-orm/datasource/workspace.datasource';
 
 @Injectable()
 export class MessagingMessageService {
   private readonly logger = new Logger(MessagingMessageService.name);
 
   constructor(
-    private readonly workspaceDataSourceService: WorkspaceDataSourceService,
-    @InjectObjectMetadataRepository(
-      MessageChannelMessageAssociationWorkspaceEntity,
-    )
-    private readonly messageChannelMessageAssociationRepository: MessageChannelMessageAssociationRepository,
+    @InjectWorkspaceDatasource()
+    private readonly workspaceDataSource: WorkspaceDataSource,
+    @InjectWorkspaceRepository(MessageChannelMessageAssociationWorkspaceEntity)
+    private readonly messageChannelMessageAssociationRepository: WorkspaceRepository<MessageChannelMessageAssociationWorkspaceEntity>,
     @InjectObjectMetadataRepository(MessageWorkspaceEntity)
     private readonly messageRepository: MessageRepository,
     @InjectObjectMetadataRepository(MessageChannelWorkspaceEntity)
@@ -48,10 +49,15 @@ export class MessagingMessageService {
 
     for (const message of messages) {
       const existingMessageChannelMessageAssociationsCount =
-        await this.messageChannelMessageAssociationRepository.countByMessageExternalIdsAndMessageChannelId(
-          [message.externalId],
-          gmailMessageChannelId,
-          workspaceId,
+        await this.messageChannelMessageAssociationRepository.count(
+          {
+            where: {
+              messageExternalId: message.externalId,
+              messageChannel: {
+                id: gmailMessageChannelId,
+              },
+            },
+          },
           transactionManager,
         );
 
@@ -83,12 +89,19 @@ export class MessagingMessageService {
       );
 
       await this.messageChannelMessageAssociationRepository.insert(
-        gmailMessageChannelId,
-        savedOrExistingMessageId,
-        message.externalId,
-        savedOrExistingMessageThreadId,
-        message.messageThreadExternalId,
-        workspaceId,
+        {
+          messageChannel: {
+            id: gmailMessageChannelId,
+          },
+          message: {
+            id: savedOrExistingMessageId,
+          },
+          messageExternalId: message.externalId,
+          messageThread: {
+            id: savedOrExistingMessageThreadId,
+          },
+          messageThreadExternalId: message.messageThreadExternalId,
+        },
         transactionManager,
       );
     }
@@ -133,10 +146,15 @@ export class MessagingMessageService {
             }
 
             const existingMessageChannelMessageAssociationsCount =
-              await this.messageChannelMessageAssociationRepository.countByMessageExternalIdsAndMessageChannelId(
-                [message.externalId],
-                gmailMessageChannelId,
-                workspaceId,
+              await this.messageChannelMessageAssociationRepository.count(
+                {
+                  where: {
+                    messageExternalId: message.externalId,
+                    messageChannel: {
+                      id: gmailMessageChannelId,
+                    },
+                  },
+                },
                 manager,
               );
 
@@ -168,12 +186,19 @@ export class MessagingMessageService {
             );
 
             await this.messageChannelMessageAssociationRepository.insert(
-              gmailMessageChannelId,
-              savedOrExistingMessageId,
-              message.externalId,
-              savedOrExistingMessageThreadId,
-              message.messageThreadExternalId,
-              workspaceId,
+              {
+                messageChannel: {
+                  id: gmailMessageChannelId,
+                },
+                message: {
+                  id: savedOrExistingMessageId,
+                },
+                messageExternalId: message.externalId,
+                messageThread: {
+                  id: savedOrExistingMessageThreadId,
+                },
+                messageThreadExternalId: message.messageThreadExternalId,
+              },
               manager,
             );
           },
@@ -233,91 +258,78 @@ export class MessagingMessageService {
     gmailMessageChannelId: string,
     workspaceId: string,
   ) {
-    const workspaceDataSource =
-      await this.workspaceDataSourceService.connectToWorkspaceDataSource(
-        workspaceId,
-      );
+    await this.workspaceDataSource.transaction(
+      async (manager: EntityManager) => {
+        await this.messageChannelMessageAssociationRepository.delete(
+          {
+            messageExternalId: Any(messagesDeletedMessageExternalIds),
+            messageChannel: {
+              id: gmailMessageChannelId,
+            },
+          },
+          manager,
+        );
 
-    await workspaceDataSource?.transaction(async (manager: EntityManager) => {
-      const messageChannelMessageAssociationsToDelete =
-        await this.messageChannelMessageAssociationRepository.getByMessageExternalIdsAndMessageChannelId(
-          messagesDeletedMessageExternalIds,
-          gmailMessageChannelId,
+        const messageIdsFromMessageChannelMessageAssociationsToDelete =
+          messageChannelMessageAssociationsToDelete.map(
+            (messageChannelMessageAssociationToDelete) =>
+              messageChannelMessageAssociationToDelete.messageId,
+          );
+
+        const messageChannelMessageAssociationByMessageIds =
+          await this.messageChannelMessageAssociationRepository.getByMessageIds(
+            messageIdsFromMessageChannelMessageAssociationsToDelete,
+            workspaceId,
+            manager,
+          );
+
+        const messageIdsFromMessageChannelMessageAssociationByMessageIds =
+          messageChannelMessageAssociationByMessageIds.map(
+            (messageChannelMessageAssociation) =>
+              messageChannelMessageAssociation.messageId,
+          );
+
+        const messageIdsToDelete =
+          messageIdsFromMessageChannelMessageAssociationsToDelete.filter(
+            (messageId) =>
+              !messageIdsFromMessageChannelMessageAssociationByMessageIds.includes(
+                messageId,
+              ),
+          );
+
+        await this.messageRepository.deleteByIds(
+          messageIdsToDelete,
           workspaceId,
           manager,
         );
 
-      const messageChannelMessageAssociationIdsToDeleteIds =
-        messageChannelMessageAssociationsToDelete.map(
-          (messageChannelMessageAssociationToDelete) =>
-            messageChannelMessageAssociationToDelete.id,
-        );
+        const messageThreadIdsFromMessageChannelMessageAssociationsToDelete =
+          messageChannelMessageAssociationsToDelete.map(
+            (messageChannelMessageAssociationToDelete) =>
+              messageChannelMessageAssociationToDelete.messageThreadId,
+          );
 
-      await this.messageChannelMessageAssociationRepository.deleteByIds(
-        messageChannelMessageAssociationIdsToDeleteIds,
-        workspaceId,
-        manager,
-      );
+        const messagesByThreadIds =
+          await this.messageRepository.getByMessageThreadIds(
+            messageThreadIdsFromMessageChannelMessageAssociationsToDelete,
+            workspaceId,
+            manager,
+          );
 
-      const messageIdsFromMessageChannelMessageAssociationsToDelete =
-        messageChannelMessageAssociationsToDelete.map(
-          (messageChannelMessageAssociationToDelete) =>
-            messageChannelMessageAssociationToDelete.messageId,
-        );
+        const threadIdsToDelete =
+          messageThreadIdsFromMessageChannelMessageAssociationsToDelete.filter(
+            (threadId) =>
+              !messagesByThreadIds.find(
+                (message) => message.messageThreadId === threadId,
+              ),
+          );
 
-      const messageChannelMessageAssociationByMessageIds =
-        await this.messageChannelMessageAssociationRepository.getByMessageIds(
-          messageIdsFromMessageChannelMessageAssociationsToDelete,
+        await this.messageThreadRepository.deleteByIds(
+          threadIdsToDelete,
           workspaceId,
           manager,
         );
-
-      const messageIdsFromMessageChannelMessageAssociationByMessageIds =
-        messageChannelMessageAssociationByMessageIds.map(
-          (messageChannelMessageAssociation) =>
-            messageChannelMessageAssociation.messageId,
-        );
-
-      const messageIdsToDelete =
-        messageIdsFromMessageChannelMessageAssociationsToDelete.filter(
-          (messageId) =>
-            !messageIdsFromMessageChannelMessageAssociationByMessageIds.includes(
-              messageId,
-            ),
-        );
-
-      await this.messageRepository.deleteByIds(
-        messageIdsToDelete,
-        workspaceId,
-        manager,
-      );
-
-      const messageThreadIdsFromMessageChannelMessageAssociationsToDelete =
-        messageChannelMessageAssociationsToDelete.map(
-          (messageChannelMessageAssociationToDelete) =>
-            messageChannelMessageAssociationToDelete.messageThreadId,
-        );
-
-      const messagesByThreadIds =
-        await this.messageRepository.getByMessageThreadIds(
-          messageThreadIdsFromMessageChannelMessageAssociationsToDelete,
-          workspaceId,
-          manager,
-        );
-
-      const threadIdsToDelete =
-        messageThreadIdsFromMessageChannelMessageAssociationsToDelete.filter(
-          (threadId) =>
-            !messagesByThreadIds.find(
-              (message) => message.messageThreadId === threadId,
-            ),
-        );
-
-      await this.messageThreadRepository.deleteByIds(
-        threadIdsToDelete,
-        workspaceId,
-        manager,
-      );
-    });
+      },
+    );
   }
 }

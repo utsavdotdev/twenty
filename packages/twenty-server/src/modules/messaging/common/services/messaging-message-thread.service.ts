@@ -4,20 +4,19 @@ import { EntityManager } from 'typeorm';
 import { v4 } from 'uuid';
 
 import { InjectObjectMetadataRepository } from 'src/engine/object-metadata-repository/object-metadata-repository.decorator';
-import { MessageChannelMessageAssociationRepository } from 'src/modules/messaging/common/repositories/message-channel-message-association.repository';
 import { MessageThreadRepository } from 'src/modules/messaging/common/repositories/message-thread.repository';
 import { MessageRepository } from 'src/modules/messaging/common/repositories/message.repository';
 import { MessageChannelMessageAssociationWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel-message-association.workspace-entity';
 import { MessageThreadWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-thread.workspace-entity';
 import { MessageWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message.workspace-entity';
+import { InjectWorkspaceRepository } from 'src/engine/twenty-orm/decorators/inject-workspace-repository.decorator';
+import { WorkspaceRepository } from 'src/engine/twenty-orm/repository/workspace.repository';
 
 @Injectable()
 export class MessagingMessageThreadService {
   constructor(
-    @InjectObjectMetadataRepository(
-      MessageChannelMessageAssociationWorkspaceEntity,
-    )
-    private readonly messageChannelMessageAssociationRepository: MessageChannelMessageAssociationRepository,
+    @InjectWorkspaceRepository(MessageChannelMessageAssociationWorkspaceEntity)
+    private readonly messageChannelMessageAssociationRepository: WorkspaceRepository<MessageChannelMessageAssociationWorkspaceEntity>,
     @InjectObjectMetadataRepository(MessageWorkspaceEntity)
     private readonly messageRepository: MessageRepository,
     @InjectObjectMetadataRepository(MessageThreadWorkspaceEntity)
@@ -32,17 +31,16 @@ export class MessagingMessageThreadService {
   ) {
     // Check if message thread already exists via threadExternalId
     const existingMessageChannelMessageAssociationByMessageThreadExternalId =
-      await this.messageChannelMessageAssociationRepository.getFirstByMessageThreadExternalId(
-        messageThreadExternalId,
-        workspaceId,
-        manager,
-      );
+      await this.messageChannelMessageAssociationRepository.findOneBy({
+        messageExternalId: messageThreadExternalId,
+      });
 
     const existingMessageThread =
-      existingMessageChannelMessageAssociationByMessageThreadExternalId?.messageThreadId;
+      existingMessageChannelMessageAssociationByMessageThreadExternalId
+        ?.messageThread?.id;
 
     if (existingMessageThread) {
-      return Promise.resolve(existingMessageThread);
+      return existingMessageThread;
     }
 
     // Check if message thread already exists via existing message headerMessageId
@@ -54,9 +52,7 @@ export class MessagingMessageThreadService {
       );
 
     if (existingMessageWithSameHeaderMessageId) {
-      return Promise.resolve(
-        existingMessageWithSameHeaderMessageId.messageThreadId,
-      );
+      return existingMessageWithSameHeaderMessageId.messageThreadId;
     }
 
     // If message thread does not exist, create new message thread
@@ -68,6 +64,6 @@ export class MessagingMessageThreadService {
       manager,
     );
 
-    return Promise.resolve(newMessageThreadId);
+    return newMessageThreadId;
   }
 }
