@@ -35,12 +35,13 @@ import { InjectMessageQueue } from 'src/engine/integrations/message-queue/decora
 import { InjectWorkspaceDatasource } from 'src/engine/twenty-orm/decorators/inject-workspace-datasource.decorator';
 import { InjectWorkspaceRepository } from 'src/engine/twenty-orm/decorators/inject-workspace-repository.decorator';
 import { WorkspaceRepository } from 'src/engine/twenty-orm/repository/workspace.repository';
+import { WorkspaceDataSource } from 'src/engine/twenty-orm/datasource/workspace.datasource';
 
 @Injectable()
 export class GoogleAPIsService {
   constructor(
     @InjectWorkspaceDatasource()
-    private readonly workspaceDataSource: DataSource,
+    private readonly workspaceDataSource: WorkspaceDataSource,
     @InjectMessageQueue(MessageQueue.messagingQueue)
     private readonly messageQueueService: MessageQueueService,
     @InjectMessageQueue(MessageQueue.calendarQueue)
