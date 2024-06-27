@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { DataSource, EntityManager } from 'typeorm';
+import { EntityManager } from 'typeorm';
 import { v4 } from 'uuid';
 
 import { EnvironmentService } from 'src/engine/integrations/environment/environment.service';

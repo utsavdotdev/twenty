@@ -1,40 +1,32 @@
 import { Injectable, Logger } from '@nestjs/common';
 
-import { Any, DataSource, EntityManager } from 'typeorm';
+import { DataSource, EntityManager } from 'typeorm';
 import { v4 } from 'uuid';
 
 import { ObjectRecord } from 'src/engine/workspace-manager/workspace-sync-metadata/types/object-record';
 import { InjectObjectMetadataRepository } from 'src/engine/object-metadata-repository/object-metadata-repository.decorator';
 import { ConnectedAccountWorkspaceEntity } from 'src/modules/connected-account/standard-objects/connected-account.workspace-entity';
 import { MessageChannelRepository } from 'src/modules/messaging/common/repositories/message-channel.repository';
-import { MessageThreadRepository } from 'src/modules/messaging/common/repositories/message-thread.repository';
 import { MessageRepository } from 'src/modules/messaging/common/repositories/message.repository';
 import { MessageChannelMessageAssociationWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel-message-association.workspace-entity';
 import { MessageChannelWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel.workspace-entity';
-import { MessageThreadWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-thread.workspace-entity';
 import { MessageWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message.workspace-entity';
 import { GmailMessage } from 'src/modules/messaging/message-import-manager/drivers/gmail/types/gmail-message';
 import { MessagingMessageThreadService } from 'src/modules/messaging/common/services/messaging-message-thread.service';
 import { InjectWorkspaceRepository } from 'src/engine/twenty-orm/decorators/inject-workspace-repository.decorator';
 import { WorkspaceRepository } from 'src/engine/twenty-orm/repository/workspace.repository';
-import { InjectWorkspaceDatasource } from 'src/engine/twenty-orm/decorators/inject-workspace-datasource.decorator';
-import { WorkspaceDataSource } from 'src/engine/twenty-orm/datasource/workspace.datasource';
 
 @Injectable()
 export class MessagingMessageService {
   private readonly logger = new Logger(MessagingMessageService.name);
 
   constructor(
-    @InjectWorkspaceDatasource()
-    private readonly workspaceDataSource: WorkspaceDataSource,
     @InjectWorkspaceRepository(MessageChannelMessageAssociationWorkspaceEntity)
     private readonly messageChannelMessageAssociationRepository: WorkspaceRepository<MessageChannelMessageAssociationWorkspaceEntity>,
     @InjectObjectMetadataRepository(MessageWorkspaceEntity)
     private readonly messageRepository: MessageRepository,
     @InjectObjectMetadataRepository(MessageChannelWorkspaceEntity)
     private readonly messageChannelRepository: MessageChannelRepository,
-    @InjectObjectMetadataRepository(MessageThreadWorkspaceEntity)
-    private readonly messageThreadRepository: MessageThreadRepository,
     private readonly messageThreadService: MessagingMessageThreadService,
   ) {}
 
@@ -251,85 +243,5 @@ export class MessagingMessageService {
     );
 
     return Promise.resolve(newMessageId);
-  }
-
-  public async deleteMessages(
-    messagesDeletedMessageExternalIds: string[],
-    gmailMessageChannelId: string,
-    workspaceId: string,
-  ) {
-    await this.workspaceDataSource.transaction(
-      async (manager: EntityManager) => {
-        await this.messageChannelMessageAssociationRepository.delete(
-          {
-            messageExternalId: Any(messagesDeletedMessageExternalIds),
-            messageChannel: {
-              id: gmailMessageChannelId,
-            },
-          },
-          manager,
-        );
-
-        const messageIdsFromMessageChannelMessageAssociationsToDelete =
-          messageChannelMessageAssociationsToDelete.map(
-            (messageChannelMessageAssociationToDelete) =>
-              messageChannelMessageAssociationToDelete.messageId,
-          );
-
-        const messageChannelMessageAssociationByMessageIds =
-          await this.messageChannelMessageAssociationRepository.getByMessageIds(
-            messageIdsFromMessageChannelMessageAssociationsToDelete,
-            workspaceId,
-            manager,
-          );
-
-        const messageIdsFromMessageChannelMessageAssociationByMessageIds =
-          messageChannelMessageAssociationByMessageIds.map(
-            (messageChannelMessageAssociation) =>
-              messageChannelMessageAssociation.messageId,
-          );
-
-        const messageIdsToDelete =
-          messageIdsFromMessageChannelMessageAssociationsToDelete.filter(
-            (messageId) =>
-              !messageIdsFromMessageChannelMessageAssociationByMessageIds.includes(
-                messageId,
-              ),
-          );
-
-        await this.messageRepository.deleteByIds(
-          messageIdsToDelete,
-          workspaceId,
-          manager,
-        );
-
-        const messageThreadIdsFromMessageChannelMessageAssociationsToDelete =
-          messageChannelMessageAssociationsToDelete.map(
-            (messageChannelMessageAssociationToDelete) =>
-              messageChannelMessageAssociationToDelete.messageThreadId,
-          );
-
-        const messagesByThreadIds =
-          await this.messageRepository.getByMessageThreadIds(
-            messageThreadIdsFromMessageChannelMessageAssociationsToDelete,
-            workspaceId,
-            manager,
-          );
-
-        const threadIdsToDelete =
-          messageThreadIdsFromMessageChannelMessageAssociationsToDelete.filter(
-            (threadId) =>
-              !messagesByThreadIds.find(
-                (message) => message.messageThreadId === threadId,
-              ),
-          );
-
-        await this.messageThreadRepository.deleteByIds(
-          threadIdsToDelete,
-          workspaceId,
-          manager,
-        );
-      },
-    );
   }
 }
