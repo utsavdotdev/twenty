@@ -22,9 +22,9 @@ import { AutoCompaniesAndContactsCreationJobModule } from 'src/modules/connected
 import { MessagingModule } from 'src/modules/messaging/messaging.module';
 import { TimelineJobModule } from 'src/modules/timeline/jobs/timeline-job.module';
 import { CalendarModule } from 'src/modules/calendar/calendar.module';
-import { CalendarEventParticipantModule } from 'src/modules/calendar/calendar-event-participant-manager/calendar-event-participant.module';
 import { CreateAWSLambdaJob } from 'src/database/commands/create-aws-lambda/jobs/create-aws-lambda.job';
 import { CreateAWSLambdaModule } from 'src/database/commands/create-aws-lambda/create-aws-lambda.module';
+import { CalendarEventParticipantManagerModule } from 'src/modules/calendar/calendar-event-participant-manager/calendar-event-participant-manager.module';
 
 @Module({
   imports: [
@@ -39,7 +39,7 @@ import { CreateAWSLambdaModule } from 'src/database/commands/create-aws-lambda/c
     WorkspaceModule,
     MessagingModule,
     CalendarModule,
-    CalendarEventParticipantModule,
+    CalendarEventParticipantManagerModule,
     TimelineActivityModule,
     StripeModule,
     WorkspaceQueryRunnerJobModule,
