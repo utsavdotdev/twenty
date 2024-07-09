@@ -12595,6 +12595,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sinclair/typebox@npm:^0.32.34":
+  version: 0.32.34
+  resolution: "@sinclair/typebox@npm:0.32.34"
+  checksum: 7d0e2e950c8f7aed74501c1abc59171f1090e521b58700cf24a47c6a4e2c3b6da5b6b0e0f7c0878e64eaa811ae4c65ceca34ca396f000d254601638393b8dad6
+  languageName: node
+  linkType: hard
+
 "@sindresorhus/is@npm:^0.14.0":
   version: 0.14.0
   resolution: "@sindresorhus/is@npm:0.14.0"
@@ -47825,6 +47832,7 @@ __metadata:
     "@nestjs/graphql": "patch:@nestjs/graphql@12.1.1#./patches/@nestjs+graphql+12.1.1.patch"
     "@nx/js": "npm:18.3.3"
     "@ptc-org/nestjs-query-graphql": "patch:@ptc-org/nestjs-query-graphql@4.2.0#./patches/@ptc-org+nestjs-query-graphql+4.2.0.patch"
+    "@sinclair/typebox": "npm:^0.32.34"
     "@types/lodash.differencewith": "npm:^4.5.9"
     "@types/lodash.isempty": "npm:^4.4.7"
     "@types/lodash.isequal": "npm:^4.5.8"

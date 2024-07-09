@@ -69,6 +69,14 @@
         "command": "node dist/src/queue-worker/queue-worker.js"
       }
     },
+    "workflow-worker": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "cwd": "packages/twenty-server",
+        "command": "node dist/src/workflow-worker/workflow-worker.js"
+      }
+    },
     "typeorm": {
       "executor": "nx:run-commands",
       "options": {
