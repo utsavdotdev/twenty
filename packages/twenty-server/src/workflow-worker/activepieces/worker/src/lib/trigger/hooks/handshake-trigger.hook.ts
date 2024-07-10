@@ -9,7 +9,7 @@ import {
     ProjectId,
     TriggerHookType,
     TriggerPayload,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService } from '../../api/server-api.service'
 import { engineRunner } from '../../engine'
 import { webhookUtils } from '../../utils/webhook-utils'

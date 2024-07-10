@@ -1,4 +1,4 @@
-import { BranchCondition, BranchOperator } from '@activepieces/shared'
+import { BranchCondition, BranchOperator } from 'src/workflow-worker/activepieces/shared/src'
 import { ExecutionVerdict, FlowExecutorContext } from '../../src/lib/handler/context/flow-execution-context'
 import { flowExecutor } from '../../src/lib/handler/flow-executor'
 import { buildActionWithOneCondition, generateMockEngineConstants } from './test-helper'

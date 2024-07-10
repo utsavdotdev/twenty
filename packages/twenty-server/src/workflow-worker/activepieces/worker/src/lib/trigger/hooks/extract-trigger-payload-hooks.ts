@@ -1,4 +1,4 @@
-import { logger } from '@activepieces/server-shared'
+import { logger } from 'src/workflow-worker/activepieces/server-shared'
 import {
     ActivepiecesError,
     ErrorCode,
@@ -7,7 +7,7 @@ import {
     ProjectId,
     TriggerHookType,
     TriggerPayload,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import { engineRunner } from '../../engine'
 import { webhookUtils } from '../../utils/webhook-utils'
 

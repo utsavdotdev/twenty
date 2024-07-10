@@ -1,5 +1,5 @@
-import { logger } from '@activepieces/server-shared'
-import { apId, FlowVersionId } from '@activepieces/shared'
+import { logger } from 'src/workflow-worker/activepieces/server-shared'
+import { apId, FlowVersionId } from 'src/workflow-worker/activepieces/shared/src'
 
 export enum SandBoxCacheType {
     CODE = 'CODE',

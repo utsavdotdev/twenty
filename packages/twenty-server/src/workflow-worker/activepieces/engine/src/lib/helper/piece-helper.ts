@@ -16,7 +16,7 @@ import {
     ExecuteValidateAuthOperation,
     ExecuteValidateAuthResponse,
     SecretTextConnectionValue,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import { EngineConstants } from '../handler/context/engine-constants'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'
 import { variableService } from '../services/variable-service'

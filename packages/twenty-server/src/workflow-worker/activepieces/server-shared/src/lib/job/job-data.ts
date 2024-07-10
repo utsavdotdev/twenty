@@ -1,10 +1,10 @@
+import { Static, Type } from '@sinclair/typebox'
 import {
     ExecutionType,
     ProgressUpdateType,
     RunEnvironment,
     TriggerType,
-} from '@activepieces/shared'
-import { Static, Type } from '@sinclair/typebox'
+} from 'src/workflow-worker/activepieces/shared/src'
 
 export const LATEST_JOB_DATA_SCHEMA_VERSION = 4
 

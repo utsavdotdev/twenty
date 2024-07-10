@@ -1,5 +1,5 @@
-import { ActionType, assertEqual, FlowError, FlowRunResponse, FlowRunStatus, GenericStepOutput, isNil, LoopStepOutput, LoopStepResult, PauseMetadata, spreadIfDefined, StepOutput, StepOutputStatus, StopResponse } from '@activepieces/shared'
 import { nanoid } from 'nanoid'
+import { ActionType, assertEqual, FlowError, FlowRunResponse, FlowRunStatus, GenericStepOutput, isNil, LoopStepOutput, LoopStepResult, PauseMetadata, spreadIfDefined, StepOutput, StepOutputStatus, StopResponse } from 'src/workflow-worker/activepieces/shared/src'
 import { loggingUtils } from '../../helper/logging-utils'
 import { StepExecutionPath } from './step-execution-path'
 

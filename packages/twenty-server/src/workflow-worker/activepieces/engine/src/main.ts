@@ -1,10 +1,10 @@
 import { argv } from 'process'
-import { parentPort } from 'worker_threads'
 import {
     assertNotNullOrUndefined,
     EngineOperation,
     EngineOperationType,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
+import { parentPort } from 'worker_threads'
 import { EngineConstants } from './lib/handler/context/engine-constants'
 import { execute } from './lib/operations'
 import { utils } from './lib/utils'

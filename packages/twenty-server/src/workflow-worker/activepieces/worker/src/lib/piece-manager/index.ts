@@ -1,4 +1,4 @@
-import { PiecesSource, SharedSystemProp, system } from '@activepieces/server-shared'
+import { PiecesSource, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
 import { LocalPieceManager } from './local-piece-manager'
 import { PieceManager } from './piece-manager'
 import { RegistryPieceManager } from './registry-piece-manager'

@@ -1,6 +1,6 @@
 import { WebhookResponse } from '@activepieces/pieces-framework'
-import { logger, networkUtls, rejectedPromiseHandler } from '@activepieces/server-shared'
-import { EventPayload, FlowId, FlowVersion, PopulatedFlow } from '@activepieces/shared'
+import { logger, networkUtls, rejectedPromiseHandler } from 'src/workflow-worker/activepieces/server-shared'
+import { EventPayload, FlowId, FlowVersion, PopulatedFlow } from 'src/workflow-worker/activepieces/shared/src'
 import { workerApiService } from '../api/server-api.service'
 import { triggerConsumer } from '../trigger/hooks/trigger-consumer'
 

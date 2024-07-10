@@ -1,6 +1,6 @@
 import path from 'path'
-import { enrichErrorContext, logger } from '@activepieces/server-shared'
-import { PiecePackage, PieceType } from '@activepieces/shared'
+import { enrichErrorContext, logger } from 'src/workflow-worker/activepieces/server-shared'
+import { PiecePackage, PieceType } from 'src/workflow-worker/activepieces/shared/src'
 import { CodeArtifact } from '../../../engine-runner'
 import { executionFiles } from '../../../execution-files'
 import { IsolateSandbox } from '../isolate-sandbox'

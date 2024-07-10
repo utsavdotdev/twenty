@@ -10,7 +10,7 @@ import {
     AUTHENTICATION_PROPERTY_NAME,
     isNil,
     isString,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import replaceAsync from 'string-replace-async'
 import { initCodeSandbox } from '../core/code/code-sandbox'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'

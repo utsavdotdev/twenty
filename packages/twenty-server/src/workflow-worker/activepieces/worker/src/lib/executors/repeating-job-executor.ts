@@ -1,6 +1,6 @@
 
-import { DelayedJobData, logger, RenewWebhookJobData, RepeatableJobType, RepeatingJobData, ScheduledJobData } from '@activepieces/server-shared'
-import { assertNotNullOrUndefined, FlowVersion, GetFlowVersionForWorkerRequestType, isNil, PopulatedFlow, ProgressUpdateType, TriggerPayload } from '@activepieces/shared'
+import { DelayedJobData, logger, RenewWebhookJobData, RepeatableJobType, RepeatingJobData, ScheduledJobData } from 'src/workflow-worker/activepieces/server-shared'
+import { assertNotNullOrUndefined, FlowVersion, GetFlowVersionForWorkerRequestType, isNil, PopulatedFlow, ProgressUpdateType, TriggerPayload } from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService, workerApiService } from '../api/server-api.service'
 import { triggerConsumer } from '../trigger/hooks/trigger-consumer'
 

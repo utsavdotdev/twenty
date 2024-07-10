@@ -2,8 +2,8 @@ import { exec } from 'node:child_process'
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import process, { arch, cwd } from 'node:process'
-import { fileExists, getEngineTimeout, logger, PiecesSource, SharedSystemProp, system } from '@activepieces/server-shared'
-import { assertNotNullOrUndefined, EngineOperation, EngineOperationType, EngineResponse, EngineResponseStatus } from '@activepieces/shared'
+import { fileExists, getEngineTimeout, logger, PiecesSource, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
+import { assertNotNullOrUndefined, EngineOperation, EngineOperationType, EngineResponse, EngineResponseStatus } from 'src/workflow-worker/activepieces/shared/src'
 import { ExecuteSandboxResult } from '../../engine-runner'
 
 type SandboxCtorParams = {

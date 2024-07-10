@@ -1,5 +1,5 @@
-import { logger, threadSafeMkdir } from '@activepieces/server-shared'
-import { PiecePackage, PieceType } from '@activepieces/shared'
+import { logger, threadSafeMkdir } from 'src/workflow-worker/activepieces/server-shared'
+import { PiecePackage, PieceType } from 'src/workflow-worker/activepieces/shared/src'
 import { pieceManager } from '../piece-manager'
 import { codeBuilder } from '../utils/code-builder'
 import { engineInstaller } from '../utils/engine-installer'

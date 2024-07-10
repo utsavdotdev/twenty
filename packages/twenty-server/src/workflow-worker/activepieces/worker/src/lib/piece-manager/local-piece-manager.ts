@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises'
 import { join, resolve, sep } from 'node:path'
-import { filePiecesUtils, logger, packageManager } from '@activepieces/server-shared'
-import { assertEqual, assertNotNullOrUndefined, PackageType, PiecePackage } from '@activepieces/shared'
+import { filePiecesUtils, logger, packageManager } from 'src/workflow-worker/activepieces/server-shared'
+import { assertEqual, assertNotNullOrUndefined, PackageType, PiecePackage } from 'src/workflow-worker/activepieces/shared/src'
 import { PieceManager } from './piece-manager'
 
 
@@ -24,7 +24,7 @@ export class LocalPieceManager extends PieceManager {
         const frameworkPackages = {
             '@activepieces/pieces-common': `link:${baseLinkPath}/common`,
             '@activepieces/pieces-framework': `link:${baseLinkPath}/framework`,
-            '@activepieces/shared': `link:${basePath}/dist/packages/shared`,
+            'src/workflow-worker/activepieces/shared/src': `link:${basePath}/dist/packages/shared`,
         }
 
         await linkFrameworkPackages(projectPath, baseLinkPath, frameworkPackages)

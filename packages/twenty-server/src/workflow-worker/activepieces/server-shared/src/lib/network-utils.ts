@@ -1,6 +1,6 @@
-import dns from 'node:dns/promises'
-import { ApEnvironment } from '@activepieces/shared'
 import { FastifyRequest } from 'fastify'
+import dns from 'node:dns/promises'
+import { ApEnvironment } from 'src/workflow-worker/activepieces/shared/src'
 import { system } from './system/system'
 import { AppSystemProp, SharedSystemProp } from './system/system-prop'
 

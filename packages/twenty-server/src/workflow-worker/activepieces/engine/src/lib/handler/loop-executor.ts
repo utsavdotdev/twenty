@@ -1,4 +1,4 @@
-import { isNil, LoopOnItemsAction, LoopStepOutput } from '@activepieces/shared'
+import { isNil, LoopOnItemsAction, LoopStepOutput } from 'src/workflow-worker/activepieces/shared/src'
 import { BaseExecutor } from './base-executor'
 import { EngineConstants } from './context/engine-constants'
 import { ExecutionVerdict, FlowExecutorContext } from './context/flow-execution-context'

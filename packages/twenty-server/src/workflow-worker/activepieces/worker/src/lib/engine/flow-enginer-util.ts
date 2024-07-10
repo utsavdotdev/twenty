@@ -1,4 +1,4 @@
-import { Action, ActionType, assertEqual, CodeAction, EXACT_VERSION_PATTERN, flowHelper, FlowVersion, PackageType, PieceActionSettings, PiecePackage, PieceTriggerSettings, PieceType, Trigger, TriggerType } from '@activepieces/shared'
+import { Action, ActionType, assertEqual, CodeAction, EXACT_VERSION_PATTERN, flowHelper, FlowVersion, PackageType, PieceActionSettings, PiecePackage, PieceTriggerSettings, PieceType, Trigger, TriggerType } from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService } from '../api/server-api.service'
 import { CodeArtifact } from './engine-runner'
 

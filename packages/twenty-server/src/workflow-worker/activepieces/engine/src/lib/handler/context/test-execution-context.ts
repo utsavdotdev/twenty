@@ -1,4 +1,4 @@
-import { ActionType, BranchStepOutput, flowHelper, FlowVersion, GenericStepOutput, LoopStepOutput, StepOutputStatus, TriggerType } from '@activepieces/shared'
+import { ActionType, BranchStepOutput, flowHelper, FlowVersion, GenericStepOutput, LoopStepOutput, StepOutputStatus, TriggerType } from 'src/workflow-worker/activepieces/shared/src'
 import { variableService } from '../../services/variable-service'
 import { FlowExecutorContext } from './flow-execution-context'
 

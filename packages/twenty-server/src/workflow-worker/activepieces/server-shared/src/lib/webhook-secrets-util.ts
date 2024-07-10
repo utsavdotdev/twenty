@@ -1,4 +1,4 @@
-import { FlowVersion, isNil } from '@activepieces/shared'
+import { FlowVersion, isNil } from 'src/workflow-worker/activepieces/shared/src'
 import { system } from './system/system'
 import { SharedSystemProp } from './system/system-prop'
 

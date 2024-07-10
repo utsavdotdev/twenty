@@ -1,6 +1,6 @@
 import os from 'os'
-import { networkUtls } from '@activepieces/server-shared'
-import { WorkerMachineHealthcheckRequest } from '@activepieces/shared'
+import { networkUtls } from 'src/workflow-worker/activepieces/server-shared'
+import { WorkerMachineHealthcheckRequest } from 'src/workflow-worker/activepieces/shared/src'
 
 async function getSystemInfo(): Promise<WorkerMachineHealthcheckRequest> {
     const totalRamInBytes = os.totalmem()

@@ -7,7 +7,7 @@ import {
     ErrorCode,
     isNil,
     PieceSyncMode,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import { AppSystemProp, SharedSystemProp, SystemProp, WorkerSystemProps } from './system-prop'
 
 

@@ -1,6 +1,6 @@
 import { copyFile } from 'node:fs/promises'
-import { fileExists, logger, memoryLock, SharedSystemProp, system } from '@activepieces/server-shared'
-import { ApEnvironment } from '@activepieces/shared'
+import { fileExists, logger, memoryLock, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
+import { ApEnvironment } from 'src/workflow-worker/activepieces/shared/src'
 
 const engineExecutablePath = system.getOrThrow(
     SharedSystemProp.ENGINE_EXECUTABLE_PATH,

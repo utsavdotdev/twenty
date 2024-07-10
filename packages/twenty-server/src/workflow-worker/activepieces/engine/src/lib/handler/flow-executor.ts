@@ -1,5 +1,5 @@
 import { performance } from 'node:perf_hooks'
-import { Action, ActionType, isNil, ProgressUpdateType } from '@activepieces/shared'
+import { Action, ActionType, isNil, ProgressUpdateType } from 'src/workflow-worker/activepieces/shared/src'
 import { progressService } from '../services/progress.service'
 import { BaseExecutor } from './base-executor'
 import { branchExecutor } from './branch-executor'

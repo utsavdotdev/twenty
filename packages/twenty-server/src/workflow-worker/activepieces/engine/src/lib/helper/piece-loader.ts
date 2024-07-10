@@ -1,5 +1,5 @@
 import { Action, Piece } from '@activepieces/pieces-framework'
-import { ActivepiecesError, ErrorCode, ExecutePropsOptions, extractPieceFromModule, getPackageAliasForPiece, isNil } from '@activepieces/shared'
+import { ActivepiecesError, ErrorCode, ExecutePropsOptions, extractPieceFromModule, getPackageAliasForPiece, isNil } from 'src/workflow-worker/activepieces/shared/src'
 
 
 const loadPieceOrThrow = async (

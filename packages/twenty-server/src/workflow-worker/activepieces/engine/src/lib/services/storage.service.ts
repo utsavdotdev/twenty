@@ -1,7 +1,7 @@
-import { URL } from 'node:url'
 import { Store, StoreScope } from '@activepieces/pieces-framework'
-import { DeleteStoreEntryRequest, FlowId, PutStoreEntryRequest, StoreEntry } from '@activepieces/shared'
 import { StatusCodes } from 'http-status-codes'
+import { URL } from 'node:url'
+import { DeleteStoreEntryRequest, FlowId, PutStoreEntryRequest, StoreEntry } from 'src/workflow-worker/activepieces/shared/src'
 import { FetchError, StorageError } from '../helper/execution-errors'
 
 export const createStorageService = ({ engineToken, apiUrl }: CreateStorageServiceParams): StorageService => {

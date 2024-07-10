@@ -1,4 +1,4 @@
-import { FlowRunStatus } from '@activepieces/shared'
+import { FlowRunStatus } from 'src/workflow-worker/activepieces/shared/src'
 import { ExecutionVerdict, FlowExecutorContext } from '../../src/lib/handler/context/flow-execution-context'
 import { flowExecutor } from '../../src/lib/handler/flow-executor'
 import { buildPieceAction, generateMockEngineConstants } from './test-helper'

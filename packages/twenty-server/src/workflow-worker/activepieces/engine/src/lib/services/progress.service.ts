@@ -1,5 +1,5 @@
-import { UpdateRunProgressRequest } from '@activepieces/shared'
 import { Mutex } from 'async-mutex'
+import { UpdateRunProgressRequest } from 'src/workflow-worker/activepieces/shared/src'
 import { EngineConstants } from '../handler/context/engine-constants'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'
 

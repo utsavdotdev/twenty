@@ -2,7 +2,7 @@ import {
     ActionType,
     GenericStepOutput,
     StepOutputStatus,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 import { loggingUtils } from '../../src/lib/helper/logging-utils'
 
 describe('Logging Utils', () => {

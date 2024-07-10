@@ -1,4 +1,4 @@
-import { FlowVersion, ProjectId, TriggerHookType } from '@activepieces/shared'
+import { FlowVersion, ProjectId, TriggerHookType } from 'src/workflow-worker/activepieces/shared/src'
 import { engineRunner } from '../../engine'
 import { webhookUtils } from '../../utils/webhook-utils'
 

@@ -1,5 +1,5 @@
-import { EngineHttpResponse, EngineOperationType, ProgressUpdateType } from '@activepieces/shared'
 import { Static, Type } from '@sinclair/typebox'
+import { EngineHttpResponse, EngineOperationType, ProgressUpdateType } from 'src/workflow-worker/activepieces/shared/src'
 import { system } from '../system/system'
 import { SharedSystemProp } from '../system/system-prop'
 import { DelayedJobData, JobData } from './job-data'

@@ -1,7 +1,7 @@
-import { spreadIfDefined } from '@activepieces/shared'
 import axios, { AxiosError, AxiosInstance, isAxiosError } from 'axios'
 import axiosRetry from 'axios-retry'
 import { StatusCodes } from 'http-status-codes'
+import { spreadIfDefined } from 'src/workflow-worker/activepieces/shared/src'
 
 export class ApAxiosError extends Error {
     constructor(public error: AxiosError, message?: string) {

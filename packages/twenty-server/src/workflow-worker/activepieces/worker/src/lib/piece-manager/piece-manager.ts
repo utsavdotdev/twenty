@@ -1,12 +1,12 @@
 import { resolve } from 'node:path'
-import { enrichErrorContext, PackageInfo, packageManager, SharedSystemProp, system } from '@activepieces/server-shared'
+import { enrichErrorContext, PackageInfo, packageManager, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
 import {
     getPackageAliasForPiece,
     getPackageArchivePathForPiece,
     isEmpty,
     PackageType,
     PiecePackage,
-} from '@activepieces/shared'
+} from 'src/workflow-worker/activepieces/shared/src'
 
 export const PACKAGE_ARCHIVE_PATH = resolve(
     system.getOrThrow(SharedSystemProp.PACKAGE_ARCHIVE_PATH),

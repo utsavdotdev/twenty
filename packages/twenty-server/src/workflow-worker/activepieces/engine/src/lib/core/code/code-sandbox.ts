@@ -1,4 +1,4 @@
-import { CodeSandboxType } from '@activepieces/shared'
+import { CodeSandboxType } from 'src/workflow-worker/activepieces/shared/src'
 import { CodeSandbox } from '../../core/code/code-sandbox-common'
 
 const CODE_SANDBOX_TYPE =

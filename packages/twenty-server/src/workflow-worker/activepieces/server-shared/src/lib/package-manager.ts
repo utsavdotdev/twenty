@@ -1,6 +1,6 @@
 import fs from 'fs/promises'
 import fsPath from 'path'
-import { isEmpty } from '@activepieces/shared'
+import { isEmpty } from 'src/workflow-worker/activepieces/shared/src'
 import { enrichErrorContext } from './exception-handler'
 import { exec } from './exec'
 import { fileExists } from './file-system'
