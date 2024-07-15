@@ -1,14 +1,14 @@
 import {
-    WebhookHandshakeStrategy,
-    WebhookResponse,
-} from '@activepieces/pieces-framework'
+  WebhookHandshakeStrategy,
+  WebhookResponse,
+} from 'src/workflow-worker/activepieces/pieces-framework/src'
 import {
-    FlowVersion,
-    isNil,
-    PieceTriggerSettings,
-    ProjectId,
-    TriggerHookType,
-    TriggerPayload,
+  FlowVersion,
+  isNil,
+  PieceTriggerSettings,
+  ProjectId,
+  TriggerHookType,
+  TriggerPayload,
 } from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService } from '../../api/server-api.service'
 import { engineRunner } from '../../engine'

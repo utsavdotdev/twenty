@@ -1,5 +1,5 @@
-import { ApFile } from '@activepieces/pieces-framework'
 import fs from 'fs/promises'
+import { ApFile } from 'src/workflow-worker/activepieces/pieces-framework/src'
 import { isString } from 'src/workflow-worker/activepieces/shared/src'
 
 const DB_PREFIX_URL = 'db://'

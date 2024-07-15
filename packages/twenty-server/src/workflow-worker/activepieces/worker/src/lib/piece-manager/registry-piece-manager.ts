@@ -1,6 +1,6 @@
 import { writeFile } from 'node:fs/promises'
 import { dirname, join } from 'node:path'
-import { fileExists, memoryLock, PackageInfo, packageManager, threadSafeMkdir } from 'src/workflow-worker/activepieces/server-shared'
+import { fileExists, memoryLock, PackageInfo, packageManager, threadSafeMkdir } from 'src/workflow-worker/activepieces/server-shared/src'
 import {
     getPackageArchivePathForPiece,
     PackageType,

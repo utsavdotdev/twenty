@@ -1,5 +1,5 @@
 import { StatusCodes } from 'http-status-codes'
-import { WebhookJobData } from 'src/workflow-worker/activepieces/server-shared'
+import { WebhookJobData } from 'src/workflow-worker/activepieces/server-shared/src'
 import { EngineHttpResponse, FlowStatus, GetFlowVersionForWorkerRequestType, isNil, ProgressUpdateType } from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService, workerApiService } from '../api/server-api.service'
 import { webhookUtils } from '../utils/webhook-utils'

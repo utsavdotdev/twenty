@@ -1,5 +1,5 @@
-import { PiecePropertyMap, StaticPropsValue, TriggerStrategy } from '@activepieces/pieces-framework'
 import { isValidCron } from 'cron-validator'
+import { PiecePropertyMap, StaticPropsValue, TriggerStrategy } from 'src/workflow-worker/activepieces/pieces-framework/src'
 import { assertEqual, AUTHENTICATION_PROPERTY_NAME, EventPayload, ExecuteTriggerOperation, ExecuteTriggerResponse, PieceTrigger, ScheduleOptions, TriggerHookType } from 'src/workflow-worker/activepieces/shared/src'
 import { EngineConstants } from '../handler/context/engine-constants'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'

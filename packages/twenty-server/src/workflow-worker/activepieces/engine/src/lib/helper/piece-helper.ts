@@ -1,21 +1,21 @@
 import {
-    DropdownProperty,
-    DropdownState,
-    DynamicProperties,
-    MultiSelectDropdownProperty,
-    PieceMetadata,
-    PiecePropertyMap,
-    PropertyType,
-    StaticPropsValue,
-} from '@activepieces/pieces-framework'
+  DropdownProperty,
+  DropdownState,
+  DynamicProperties,
+  MultiSelectDropdownProperty,
+  PieceMetadata,
+  PiecePropertyMap,
+  PropertyType,
+  StaticPropsValue,
+} from 'src/workflow-worker/activepieces/pieces-framework/src'
 import {
-    BasicAuthConnectionValue,
-    CustomAuthConnectionValue,
-    ExecuteExtractPieceMetadata,
-    ExecutePropsOptions,
-    ExecuteValidateAuthOperation,
-    ExecuteValidateAuthResponse,
-    SecretTextConnectionValue,
+  BasicAuthConnectionValue,
+  CustomAuthConnectionValue,
+  ExecuteExtractPieceMetadata,
+  ExecutePropsOptions,
+  ExecuteValidateAuthOperation,
+  ExecuteValidateAuthResponse,
+  SecretTextConnectionValue,
 } from 'src/workflow-worker/activepieces/shared/src'
 import { EngineConstants } from '../handler/context/engine-constants'
 import { FlowExecutorContext } from '../handler/context/flow-execution-context'

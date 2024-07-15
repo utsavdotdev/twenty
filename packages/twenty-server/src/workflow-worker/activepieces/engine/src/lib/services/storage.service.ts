@@ -1,6 +1,6 @@
-import { Store, StoreScope } from '@activepieces/pieces-framework'
 import { StatusCodes } from 'http-status-codes'
 import { URL } from 'node:url'
+import { Store, StoreScope } from 'src/workflow-worker/activepieces/pieces-framework/src'
 import { DeleteStoreEntryRequest, FlowId, PutStoreEntryRequest, StoreEntry } from 'src/workflow-worker/activepieces/shared/src'
 import { FetchError, StorageError } from '../helper/execution-errors'
 

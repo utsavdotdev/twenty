@@ -1,4 +1,4 @@
-import { ApFile, PieceAuth, Property, Validators } from '@activepieces/pieces-framework'
+import { ApFile, PieceAuth, Property, Validators } from 'src/workflow-worker/activepieces/pieces-framework/src'
 import { ActionType, GenericStepOutput, StepOutputStatus, TriggerType } from 'src/workflow-worker/activepieces/shared/src'
 import { FlowExecutorContext } from '../../src/lib/handler/context/flow-execution-context'
 import { VariableService } from '../../src/lib/services/variable-service'

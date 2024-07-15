@@ -1,4 +1,4 @@
-import { ApSemaphore, getEngineTimeout, logger, rejectedPromiseHandler, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
+import { ApSemaphore, getEngineTimeout, logger, rejectedPromiseHandler, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared/src'
 import { ApEnvironment, assertNotNullOrUndefined, EngineOperation, EngineOperationType, EngineResponse, EngineResponseStatus } from 'src/workflow-worker/activepieces/shared/src'
 import { Worker, WorkerOptions } from 'worker_threads'
 

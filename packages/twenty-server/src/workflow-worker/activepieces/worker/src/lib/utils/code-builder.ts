@@ -1,6 +1,6 @@
 import fs from 'node:fs/promises'
 import path from 'node:path'
-import { fileExists, logger, memoryLock, PackageInfo, packageManager, threadSafeMkdir } from 'src/workflow-worker/activepieces/server-shared'
+import { fileExists, logger, memoryLock, PackageInfo, packageManager, threadSafeMkdir } from 'src/workflow-worker/activepieces/server-shared/src'
 import { FlowVersionState } from 'src/workflow-worker/activepieces/shared/src'
 import { CodeArtifact } from '../engine/engine-runner'
 const TS_CONFIG_CONTENT = `

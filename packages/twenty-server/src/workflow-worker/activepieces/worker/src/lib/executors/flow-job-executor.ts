@@ -1,4 +1,4 @@
-import { exceptionHandler, OneTimeJobData } from 'src/workflow-worker/activepieces/server-shared'
+import { exceptionHandler, OneTimeJobData } from 'src/workflow-worker/activepieces/server-shared/src'
 import { ActivepiecesError, BeginExecuteFlowOperation, ErrorCode, ExecutionType, FlowRunStatus, FlowVersion, GetFlowVersionForWorkerRequestType, isNil, ResumeExecuteFlowOperation, ResumePayload } from 'src/workflow-worker/activepieces/shared/src'
 import { engineApiService } from '../api/server-api.service'
 import { engineRunner } from '../engine'

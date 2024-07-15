@@ -1,5 +1,5 @@
 import { Mutex } from 'async-mutex'
-import { logger } from 'src/workflow-worker/activepieces/server-shared'
+import { logger } from 'src/workflow-worker/activepieces/server-shared/src'
 import { isNil } from 'src/workflow-worker/activepieces/shared/src'
 import { IsolateSandbox } from './isolate-sandbox'
 

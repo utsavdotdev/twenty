@@ -1,4 +1,4 @@
-import { Action, Piece } from '@activepieces/pieces-framework'
+import { Action, Piece } from 'src/workflow-worker/activepieces/pieces-framework/src'
 import { ActivepiecesError, ErrorCode, ExecutePropsOptions, extractPieceFromModule, getPackageAliasForPiece, isNil } from 'src/workflow-worker/activepieces/shared/src'
 
 

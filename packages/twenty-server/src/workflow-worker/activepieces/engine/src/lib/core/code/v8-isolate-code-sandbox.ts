@@ -1,103 +1,119 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-redundant-type-constituents */
-import { CodeModule, CodeSandbox } from '../../core/code/code-sandbox-common'
+import { CodeModule, CodeSandbox } from '../../core/code/code-sandbox-common';
 
-const ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES = 128
+const ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES = 128;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 // Check this https://github.com/laverdet/isolated-vm/issues/258#issuecomment-2134341086
-let ivmCache: any
+let ivmCache: any;
 const getIvm = () => {
-    if (!ivmCache) {
-        ivmCache = require('isolated-vm')
-    }
-    return ivmCache as typeof import('isolated-vm')
-}
-  
+  if (!ivmCache) {
+    // ivmCache = require('isolated-vm');
+  }
+
+  return {} as any;
+  //   return ivmCache as typeof import('isolated-vm');
+};
+
 /**
  * Runs code in a V8 Isolate sandbox
  */
 export const v8IsolateCodeSandbox: CodeSandbox = {
-    async runCodeModule({ codeModule, inputs }) {
-        const ivm = getIvm()
-        const isolate = new ivm.Isolate({ memoryLimit: ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES })
+  async runCodeModule({ codeModule, inputs }) {
+    const ivm = getIvm();
+    const isolate = new ivm.Isolate({
+      memoryLimit: ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES,
+    });
 
-        try {
-            const isolateContext = await initIsolateContext({
-                isolate,
-                codeContext: {
-                    inputs,
-                },
-            })
+    try {
+      const isolateContext = await initIsolateContext({
+        isolate,
+        codeContext: {
+          inputs,
+        },
+      });
 
-            const serializedCodeModule = serializeCodeModule(codeModule)
+      const serializedCodeModule = serializeCodeModule(codeModule);
 
-            return await executeIsolate({
-                isolate,
-                isolateContext,
-                code: serializedCodeModule,
-            })
-        }
-        finally {
-            isolate.dispose()
-        }
-    },
-
-    async runScript({ script, scriptContext }) {
-        const ivm = getIvm()
-        const isolate = new ivm.Isolate({ memoryLimit: ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES })
-
-        try {
-            const isolateContext = await initIsolateContext({
-                isolate,
-                codeContext: scriptContext,
-            })
-
-            return await executeIsolate({
-                isolate,
-                isolateContext,
-                code: script,
-            })
-        }
-        finally {
-            isolate.dispose()
-        }
-    },
-}
-
-const initIsolateContext = async ({ isolate, codeContext }: InitContextParams): Promise<any> => {
-    const isolateContext = await isolate.createContext()
-    const ivm = getIvm()
-    for (const [key, value] of Object.entries(codeContext)) {
-        await isolateContext.global.set(key, new ivm.ExternalCopy(value).copyInto())
+      return await executeIsolate({
+        isolate,
+        isolateContext,
+        code: serializedCodeModule,
+      });
+    } finally {
+      isolate.dispose();
     }
+  },
 
-    return isolateContext
-}
+  async runScript({ script, scriptContext }) {
+    const ivm = getIvm();
+    const isolate = new ivm.Isolate({
+      memoryLimit: ONE_HUNDRED_TWENTY_EIGHT_MEGABYTES,
+    });
 
-const executeIsolate = async ({ isolate, isolateContext, code }: ExecuteIsolateParams): Promise<unknown> => {
-    const isolateScript = await isolate.compileScript(code)
+    try {
+      const isolateContext = await initIsolateContext({
+        isolate,
+        codeContext: scriptContext,
+      });
 
-    const outRef = await isolateScript.run(isolateContext, {
-        reference: true,
-        promise: true,
-    })
+      return await executeIsolate({
+        isolate,
+        isolateContext,
+        code: script,
+      });
+    } finally {
+      isolate.dispose();
+    }
+  },
+};
 
-    return outRef.copy()
-}
+const initIsolateContext = async ({
+  isolate,
+  codeContext,
+}: InitContextParams): Promise<any> => {
+  const isolateContext = await isolate.createContext();
+  const ivm = getIvm();
+
+  for (const [key, value] of Object.entries(codeContext)) {
+    await isolateContext.global.set(
+      key,
+      new ivm.ExternalCopy(value).copyInto(),
+    );
+  }
+
+  return isolateContext;
+};
+
+const executeIsolate = async ({
+  isolate,
+  isolateContext,
+  code,
+}: ExecuteIsolateParams): Promise<unknown> => {
+  const isolateScript = await isolate.compileScript(code);
+
+  const outRef = await isolateScript.run(isolateContext, {
+    reference: true,
+    promise: true,
+  });
+
+  return outRef.copy();
+};
 
 const serializeCodeModule = (codeModule: CodeModule): string => {
-    const serializedCodeFunction = codeModule.code.toString()
-    return `const code = ${serializedCodeFunction}; code(inputs);`
-}
+  const serializedCodeFunction = codeModule.code.toString();
+
+  return `const code = ${serializedCodeFunction}; code(inputs);`;
+};
 
 type InitContextParams = {
-    isolate: any
-    codeContext: Record<string, unknown>
-}
+  isolate: any;
+  codeContext: Record<string, unknown>;
+};
 
 type ExecuteIsolateParams = {
-    isolate: any
-    isolateContext: unknown
-    code: string
-}
+  isolate: any;
+  isolateContext: unknown;
+  code: string;
+};

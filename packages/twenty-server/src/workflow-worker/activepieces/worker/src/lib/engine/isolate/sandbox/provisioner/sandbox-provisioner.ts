@@ -1,5 +1,5 @@
 import path from 'path'
-import { enrichErrorContext, logger } from 'src/workflow-worker/activepieces/server-shared'
+import { enrichErrorContext, logger } from 'src/workflow-worker/activepieces/server-shared/src'
 import { PiecePackage, PieceType } from 'src/workflow-worker/activepieces/shared/src'
 import { CodeArtifact } from '../../../engine-runner'
 import { executionFiles } from '../../../execution-files'

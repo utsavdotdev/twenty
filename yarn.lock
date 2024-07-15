@@ -17324,6 +17324,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/jest@npm:^29.5.12":
+  version: 29.5.12
+  resolution: "@types/jest@npm:29.5.12"
+  dependencies:
+    expect: "npm:^29.0.0"
+    pretty-format: "npm:^29.0.0"
+  checksum: 25fc8e4c611fa6c4421e631432e9f0a6865a8cb07c9815ec9ac90d630271cad773b2ee5fe08066f7b95bebd18bb967f8ce05d018ee9ab0430f9dfd1d84665b6f
+  languageName: node
+  linkType: hard
+
 "@types/js-cookie@npm:^2.2.6":
   version: 2.2.7
   resolution: "@types/js-cookie@npm:2.2.7"
@@ -20544,6 +20554,17 @@ __metadata:
   version: 4.7.0
   resolution: "axe-core@npm:4.7.0"
   checksum: 89ac5712b5932ac7d23398b4cb5ba081c394a086e343acc68ba49c83472706e18e0799804e8388c779dcdacc465377deb29f2714241d3fbb389cf3a6b275c9ba
+  languageName: node
+  linkType: hard
+
+"axios-retry@npm:^4.4.1":
+  version: 4.4.1
+  resolution: "axios-retry@npm:4.4.1"
+  dependencies:
+    is-retry-allowed: "npm:^2.2.0"
+  peerDependencies:
+    axios: 0.x || 1.x
+  checksum: 2560d33cc732e920e43b3cbdfdbbaaece040a538506c33b5e302deee4d953e8f55af8065a3b766e72f68ba4712cdfe688ef52ba80dc3c6a21e65cf8362e75736
   languageName: node
   linkType: hard
 
@@ -24470,6 +24491,13 @@ __metadata:
   dependencies:
     luxon: "npm:^3.2.1"
   checksum: 348622bdcd1a15695b61fc33af8a60133e5913a85cf99f6344367579e7002896514ba3b0a9d6bb569b02667d6b06836722bf2295fcd101b3de378f71d37bed0b
+  languageName: node
+  linkType: hard
+
+"cron-validator@npm:^1.3.1":
+  version: 1.3.1
+  resolution: "cron-validator@npm:1.3.1"
+  checksum: 80d276a729959ceaf394a3ffd579579895ca3cf956e552aef351e4d3695c7baf5594e3f2ac8a11514520c94eeef66ad0b91424f938a7e0609e5557175f41349b
   languageName: node
   linkType: hard
 
@@ -31388,6 +31416,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"http-status-codes@npm:^2.3.0":
+  version: 2.3.0
+  resolution: "http-status-codes@npm:2.3.0"
+  checksum: c2412188929e8eed6623eef468c62d0c3c082919c03e9b74fd79cfd060d11783dba44603e38a3cee52d26563fe32005913eaf6120aa8ba907da1238f3eaad5fe
+  languageName: node
+  linkType: hard
+
 "http2-wrapper@npm:^1.0.0-beta.5.2":
   version: 1.0.3
   resolution: "http2-wrapper@npm:1.0.3"
@@ -32105,6 +32140,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"is-base64@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "is-base64@npm:1.1.0"
+  bin:
+    is-base64: bin/is-base64
+    is_base64: bin/is-base64
+  checksum: d9f73739a7d0af48403b0f9091822a2596665e5c9e1e428ba2cef00133c1bccf97cf6fcc07e0b39950e47c3a434fb19c42d2f39578d34f5eb9e66e074bc8449f
+  languageName: node
+  linkType: hard
+
 "is-bigint@npm:^1.0.1":
   version: 1.0.4
   resolution: "is-bigint@npm:1.0.4"
@@ -32576,6 +32621,13 @@ __metadata:
   dependencies:
     is-unc-path: "npm:^1.0.0"
   checksum: 61157c4be8594dd25ac6f0ef29b1218c36667259ea26698367a4d9f39ff9018368bc365c490b3c79be92dfb1e389e43c4b865c95709e7b3bc72c5932f751fb60
+  languageName: node
+  linkType: hard
+
+"is-retry-allowed@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "is-retry-allowed@npm:2.2.0"
+  checksum: 013be4f8a0a06a49ed1fe495242952e898325d496202a018f6f9fb3fb9ac8fe3b957a9bd62463d68299ae35dbbda680473c85a9bcefca731b49d500d3ccc08ff
   languageName: node
   linkType: hard
 
@@ -39562,6 +39614,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-sizeof@npm:^2.6.5":
+  version: 2.6.5
+  resolution: "object-sizeof@npm:2.6.5"
+  dependencies:
+    buffer: "npm:^6.0.3"
+  checksum: ae733fc7aaf8eb2446aa632a34a2a30c9535afdb1997a626bf8912e64893c1afa0e1e6a9153235c09c6e8d586100eeb6fe2d869a82dcee00144cb11efb229d8e
+  languageName: node
+  linkType: hard
+
 "object-treeify@npm:^1.1.4":
   version: 1.1.33
   resolution: "object-treeify@npm:1.1.33"
@@ -41826,6 +41887,13 @@ __metadata:
   bin:
     prettyjson: bin/prettyjson
   checksum: 94ea84205fc5103e32d562f515631c22440f7bcf4de5f5687522692e3f270bf4f450170857e098926adaec1b4ef33c9a8c97ae8911079a50fe7f584dd9ae5058
+  languageName: node
+  linkType: hard
+
+"priority-queue-typescript@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "priority-queue-typescript@npm:1.0.1"
+  checksum: 323a6f97fb5e6d302bce5aefb51d240cf9b22061c1bda74977a63d3f19eec7580c8bc55e0ac5b496cba5e5b086387109d9709c2668d9edd1da5894134ea466bc
   languageName: node
   linkType: hard
 
@@ -46173,6 +46241,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"string-replace-async@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "string-replace-async@npm:3.0.2"
+  checksum: d1f05dc78e400c08ca90da895013269d7d2ee98825ac0a949e5ecba666fbc0d45320c0d6c98276c4f1d7e0062992c2f84ce3541cf8d9d8c77ad7b7c7953329e5
+  languageName: node
+  linkType: hard
+
 "string-width-cjs@npm:string-width@^4.2.0, string-width@npm:^1.0.2 || 2 || 3 || 4, string-width@npm:^4.0.0, string-width@npm:^4.1.0, string-width@npm:^4.2.0, string-width@npm:^4.2.2, string-width@npm:^4.2.3":
   version: 4.2.3
   resolution: "string-width@npm:4.2.3"
@@ -47842,6 +47917,7 @@ __metadata:
     "@nx/js": "npm:18.3.3"
     "@ptc-org/nestjs-query-graphql": "patch:@ptc-org/nestjs-query-graphql@4.2.0#./patches/@ptc-org+nestjs-query-graphql+4.2.0.patch"
     "@sinclair/typebox": "npm:^0.32.34"
+    "@types/jest": "npm:^29.5.12"
     "@types/lodash.differencewith": "npm:^4.5.9"
     "@types/lodash.isempty": "npm:^4.4.7"
     "@types/lodash.isequal": "npm:^4.5.8"
@@ -47854,10 +47930,14 @@ __metadata:
     "@types/lodash.upperfirst": "npm:^4.3.7"
     "@types/react": "npm:^18.2.39"
     async-mutex: "npm:^0.5.0"
+    axios-retry: "npm:^4.4.1"
     cache-manager: "npm:^5.4.0"
     cache-manager-redis-yet: "npm:^4.1.2"
     class-validator: "patch:class-validator@0.14.0#./patches/class-validator+0.14.0.patch"
+    cron-validator: "npm:^1.3.1"
     graphql-middleware: "npm:^6.1.35"
+    http-status-codes: "npm:^2.3.0"
+    is-base64: "npm:^1.1.0"
     jsdom: "npm:~22.1.0"
     jwt-decode: "npm:^4.0.0"
     langchain: "npm:^0.2.6"
@@ -47866,9 +47946,12 @@ __metadata:
     lodash.omitby: "npm:^4.6.0"
     lodash.uniq: "npm:^4.5.0"
     lodash.uniqby: "npm:^4.7.0"
+    object-sizeof: "npm:^2.6.5"
     passport: "npm:^0.7.0"
+    priority-queue-typescript: "npm:^1.0.1"
     psl: "npm:^1.9.0"
     rimraf: "npm:^5.0.5"
+    string-replace-async: "npm:^3.0.2"
     tsconfig-paths: "npm:^4.2.0"
     typescript: "npm:5.3.3"
     zod-to-json-schema: "npm:^3.23.1"

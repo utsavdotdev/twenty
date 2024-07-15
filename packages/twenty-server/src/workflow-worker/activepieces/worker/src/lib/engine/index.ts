@@ -1,4 +1,4 @@
-import { ExecutionMode, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
+import { ExecutionMode, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared/src'
 import { isolateEngineRunner } from './isolate/isolate-engine-runner'
 import { threadEngineRunner } from './threads/thread-engine-runner'
 

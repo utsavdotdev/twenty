@@ -1,5 +1,5 @@
 import { resolve } from 'node:path'
-import { enrichErrorContext, PackageInfo, packageManager, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared'
+import { enrichErrorContext, PackageInfo, packageManager, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared/src'
 import {
     getPackageAliasForPiece,
     getPackageArchivePathForPiece,

@@ -1,5 +1,5 @@
 import os from 'os'
-import { networkUtls } from 'src/workflow-worker/activepieces/server-shared'
+import { networkUtls } from 'src/workflow-worker/activepieces/server-shared/src'
 import { WorkerMachineHealthcheckRequest } from 'src/workflow-worker/activepieces/shared/src'
 
 async function getSystemInfo(): Promise<WorkerMachineHealthcheckRequest> {

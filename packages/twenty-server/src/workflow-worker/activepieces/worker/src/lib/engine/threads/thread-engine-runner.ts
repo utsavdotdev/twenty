@@ -1,5 +1,5 @@
 import path from 'path'
-import { logger, networkUtls, SharedSystemProp, system, webhookSecretsUtils, WorkerSystemProps } from 'src/workflow-worker/activepieces/server-shared'
+import { logger, networkUtls, SharedSystemProp, system, webhookSecretsUtils, WorkerSystemProps } from 'src/workflow-worker/activepieces/server-shared/src'
 import { Action, ActionType, assertNotNullOrUndefined, EngineOperation, EngineOperationType, ExecuteFlowOperation, ExecutePropsOptions, ExecuteStepOperation, ExecuteTriggerOperation, ExecuteValidateAuthOperation, flowHelper, FlowVersion, isNil, TriggerHookType } from 'src/workflow-worker/activepieces/shared/src'
 import { webhookUtils } from '../../utils/webhook-utils'
 import { EngineHelperResponse, EngineHelperResult, EngineRunner, engineRunnerUtils } from '../engine-runner'

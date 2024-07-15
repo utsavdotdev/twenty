@@ -1,5 +1,5 @@
 {
-  "name": "@activepieces/shared",
+  "name": "src/workflow-worker/activepieces/shared/src",
   "version": "0.10.112",
   "type": "commonjs"
 }
