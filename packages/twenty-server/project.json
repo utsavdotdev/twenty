@@ -20,6 +20,27 @@
         "updateBuildableProjectDepsInPackageJson": true
       }
     },
+    "build-workflow-engine": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "packages/twenty-server/src/workflow-worker/activepieces/engine/dist",
+        "main": "packages/twenty-server/src/workflow-worker/activepieces/engine/src/main.ts",
+        "tsConfig": "packages/twenty-server/tsconfig.build.json",
+        "webpackConfig": "packages/twenty-server/src/workflow-worker/activepieces/engine/webpack.config.js",
+        "generatePackageJson": true,
+        "babelUpwardRootMode": true
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false
+        }
+      }
+    },
     "start": {
       "executor": "nx:run-commands",
       "dependsOn": ["build"],
