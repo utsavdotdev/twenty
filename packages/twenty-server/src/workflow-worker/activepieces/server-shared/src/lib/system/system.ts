@@ -2,19 +2,19 @@ import os from 'os';
 import path from 'path';
 
 import {
-    ActivepiecesError,
-    ApEdition,
-    CodeSandboxType,
-    ErrorCode,
-    isNil,
-    PieceSyncMode,
+  ActivepiecesError,
+  ApEdition,
+  CodeSandboxType,
+  ErrorCode,
+  isNil,
+  PieceSyncMode,
 } from 'src/workflow-worker/activepieces/shared/src';
 
 import {
-    AppSystemProp,
-    SharedSystemProp,
-    SystemProp,
-    WorkerSystemProps,
+  AppSystemProp,
+  SharedSystemProp,
+  SystemProp,
+  WorkerSystemProps,
 } from './system-prop';
 
 export enum CopilotInstanceTypes {

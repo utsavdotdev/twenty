@@ -1,13 +1,13 @@
-import { Static, Type } from '@sinclair/typebox'
+import { Static, Type } from '@sinclair/typebox';
 
 export const GenerateCodeRequest = Type.Object({
-    prompt: Type.String(),
-})
+  prompt: Type.String(),
+});
 
-export type GenerateCodeRequest = Static<typeof GenerateCodeRequest>
+export type GenerateCodeRequest = Static<typeof GenerateCodeRequest>;
 
 export const GenerateCodeResponse = Type.Object({
-    result: Type.String(),
-})
+  result: Type.String(),
+});
 
-export type GenerateCodeResponse = Static<typeof GenerateCodeResponse>
+export type GenerateCodeResponse = Static<typeof GenerateCodeResponse>;

@@ -1,19 +1,28 @@
-import { Type } from "@sinclair/typebox";
-import { LongTextProperty, ShortTextProperty } from "./text-property";
-import { NumberProperty } from "./number-property";
-import { ArrayProperty } from "./array-property";
-import { ObjectProperty } from "./object-property";
-import { JsonProperty } from "./json-property";
-import { DateTimeProperty } from "./date-time-property";
-import { FileProperty } from "./file-property";
-import { PropertyType } from "./property-type";
-import { MarkDownProperty } from "./markdown-property";
-import { CheckboxProperty } from "./checkbox-property";
-import { StaticDropdownProperty, StaticMultiSelectDropdownProperty } from "./dropdown/static-dropdown";
-import { Processors } from "../../processors/processors";
-import { Validators } from "../../validators/validators";
-import { DynamicProperties } from "./dynamic-prop";
-import { DropdownProperty, MultiSelectDropdownProperty } from "./dropdown/dropdown-prop";
+import { Type } from '@sinclair/typebox';
+
+import { Processors } from '../../processors/processors';
+import { Validators } from '../../validators/validators';
+
+import { LongTextProperty, ShortTextProperty } from './text-property';
+import { NumberProperty } from './number-property';
+import { ArrayProperty } from './array-property';
+import { ObjectProperty } from './object-property';
+import { JsonProperty } from './json-property';
+import { DateTimeProperty } from './date-time-property';
+import { FileProperty } from './file-property';
+import { PropertyType } from './property-type';
+import { MarkDownProperty } from './markdown-property';
+import { CheckboxProperty } from './checkbox-property';
+import { DynamicProperties } from './dynamic-prop';
+
+import {
+  StaticDropdownProperty,
+  StaticMultiSelectDropdownProperty,
+} from './dropdown/static-dropdown';
+import {
+  DropdownProperty,
+  MultiSelectDropdownProperty,
+} from './dropdown/dropdown-prop';
 
 export const InputProperty = Type.Union([
   ShortTextProperty,
@@ -31,10 +40,10 @@ export const InputProperty = Type.Union([
   JsonProperty,
   DateTimeProperty,
   FileProperty,
-])
+]);
 
 export type InputProperty =
-  ShortTextProperty<boolean>
+  | ShortTextProperty<boolean>
   | LongTextProperty<boolean>
   | MarkDownProperty
   | CheckboxProperty<boolean>
@@ -55,10 +64,9 @@ type Properties<T> = Omit<
   'valueSchema' | 'type' | 'defaultValidators' | 'defaultProcessors'
 >;
 
-
 export const Property = {
   ShortText<R extends boolean>(
-    request: Properties<ShortTextProperty<R>>
+    request: Properties<ShortTextProperty<R>>,
   ): R extends true ? ShortTextProperty<true> : ShortTextProperty<false> {
     return {
       ...request,
@@ -71,7 +79,7 @@ export const Property = {
       : ShortTextProperty<false>;
   },
   Checkbox<R extends boolean>(
-    request: Properties<CheckboxProperty<R>>
+    request: Properties<CheckboxProperty<R>>,
   ): R extends true ? CheckboxProperty<true> : CheckboxProperty<false> {
     return {
       ...request,
@@ -82,7 +90,7 @@ export const Property = {
       : CheckboxProperty<false>;
   },
   LongText<R extends boolean>(
-    request: Properties<LongTextProperty<R>>
+    request: Properties<LongTextProperty<R>>,
   ): R extends true ? LongTextProperty<true> : LongTextProperty<false> {
     return {
       ...request,
@@ -102,7 +110,7 @@ export const Property = {
     };
   },
   Number<R extends boolean>(
-    request: Properties<NumberProperty<R>>
+    request: Properties<NumberProperty<R>>,
   ): R extends true ? NumberProperty<true> : NumberProperty<false> {
     return {
       ...request,
@@ -116,7 +124,7 @@ export const Property = {
   },
 
   Json<R extends boolean>(
-    request: Properties<JsonProperty<R>>
+    request: Properties<JsonProperty<R>>,
   ): R extends true ? JsonProperty<true> : JsonProperty<false> {
     return {
       ...request,
@@ -126,7 +134,7 @@ export const Property = {
     } as unknown as R extends true ? JsonProperty<true> : JsonProperty<false>;
   },
   Array<R extends boolean>(
-    request: Properties<ArrayProperty<R>>
+    request: Properties<ArrayProperty<R>>,
   ): R extends true ? ArrayProperty<true> : ArrayProperty<false> {
     return {
       ...request,
@@ -135,7 +143,7 @@ export const Property = {
     } as unknown as R extends true ? ArrayProperty<true> : ArrayProperty<false>;
   },
   Object<R extends boolean>(
-    request: Properties<ObjectProperty<R>>
+    request: Properties<ObjectProperty<R>>,
   ): R extends true ? ObjectProperty<true> : ObjectProperty<false> {
     return {
       ...request,
@@ -146,7 +154,7 @@ export const Property = {
       : ObjectProperty<false>;
   },
   Dropdown<T, R extends boolean = boolean>(
-    request: Properties<DropdownProperty<T, R>>
+    request: Properties<DropdownProperty<T, R>>,
   ): R extends true ? DropdownProperty<T, true> : DropdownProperty<T, false> {
     return {
       ...request,
@@ -157,7 +165,7 @@ export const Property = {
       : DropdownProperty<T, false>;
   },
   StaticDropdown<T, R extends boolean = boolean>(
-    request: Properties<StaticDropdownProperty<T, R>>
+    request: Properties<StaticDropdownProperty<T, R>>,
   ): R extends true
     ? StaticDropdownProperty<T, true>
     : StaticDropdownProperty<T, false> {
@@ -170,7 +178,7 @@ export const Property = {
       : StaticDropdownProperty<T, false>;
   },
   MultiSelectDropdown<T, R extends boolean = boolean>(
-    request: Properties<MultiSelectDropdownProperty<T, R>>
+    request: Properties<MultiSelectDropdownProperty<T, R>>,
   ): R extends true
     ? MultiSelectDropdownProperty<T, true>
     : MultiSelectDropdownProperty<T, false> {
@@ -183,7 +191,7 @@ export const Property = {
       : MultiSelectDropdownProperty<T, false>;
   },
   DynamicProperties<R extends boolean = boolean>(
-    request: Properties<DynamicProperties<R>>
+    request: Properties<DynamicProperties<R>>,
   ): R extends true ? DynamicProperties<true> : DynamicProperties<false> {
     return {
       ...request,
@@ -194,7 +202,7 @@ export const Property = {
       : DynamicProperties<false>;
   },
   StaticMultiSelectDropdown<T, R extends boolean = boolean>(
-    request: Properties<StaticMultiSelectDropdownProperty<T, R>>
+    request: Properties<StaticMultiSelectDropdownProperty<T, R>>,
   ): R extends true
     ? StaticMultiSelectDropdownProperty<T, true>
     : StaticMultiSelectDropdownProperty<T, false> {
@@ -207,7 +215,7 @@ export const Property = {
       : StaticMultiSelectDropdownProperty<T, false>;
   },
   DateTime<R extends boolean>(
-    request: Properties<DateTimeProperty<R>>
+    request: Properties<DateTimeProperty<R>>,
   ): R extends true ? DateTimeProperty<true> : DateTimeProperty<false> {
     return {
       ...request,
@@ -220,7 +228,7 @@ export const Property = {
       : DateTimeProperty<false>;
   },
   File<R extends boolean>(
-    request: Properties<FileProperty<R>>
+    request: Properties<FileProperty<R>>,
   ): R extends true ? FileProperty<true> : FileProperty<false> {
     return {
       ...request,

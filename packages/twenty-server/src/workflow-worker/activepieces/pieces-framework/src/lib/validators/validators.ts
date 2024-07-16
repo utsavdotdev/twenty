@@ -1,17 +1,24 @@
 import dayjs, { OpUnitType } from 'dayjs';
-import { isEmpty, isNil, isString } from 'src/workflow-worker/activepieces/shared/src';
+
+import {
+  isEmpty,
+  isNil,
+  isString,
+} from 'src/workflow-worker/activepieces/shared/src';
+
 import { ApFile } from '../property';
+
 import { ErrorMessages } from './errors';
 import {
-    TypedValidatorFn,
-    ValidationErrors,
-    ValidationInputType,
+  TypedValidatorFn,
+  ValidationErrors,
+  ValidationInputType,
 } from './types';
 import { formatErrorMessage } from './utils';
 
 class Validators {
   static pattern(
-    regex: string | RegExp
+    regex: string | RegExp,
   ): TypedValidatorFn<ValidationInputType.STRING> {
     return {
       type: ValidationInputType.STRING,
@@ -25,14 +32,14 @@ class Validators {
         return regex.test(String(processedValue))
           ? null
           : formatErrorMessage(ErrorMessages.REGEX, {
-            property: property?.displayName,
-          });
+              property: property?.displayName,
+            });
       },
     };
   }
 
   static prohibitPattern(
-    regex: string | RegExp
+    regex: string | RegExp,
   ): TypedValidatorFn<ValidationInputType.STRING> {
     return {
       type: ValidationInputType.STRING,
@@ -41,13 +48,14 @@ class Validators {
         const patternError = patternValidator.fn(
           property,
           processedValue,
-          userInput
+          userInput,
         );
+
         return patternError
           ? null
           : formatErrorMessage(ErrorMessages.PROHIBIT_REGEX, {
-            property: property.displayName,
-          });
+              property: property.displayName,
+            });
       },
     };
   }
@@ -59,7 +67,7 @@ class Validators {
         if (isEmpty(processedValue)) return null;
 
         const isValid = processedValue.length <= max;
-        
+
         if (!isValid) {
           return formatErrorMessage(ErrorMessages.MAX_LENGTH, {
             userInput,
@@ -96,7 +104,9 @@ class Validators {
       type: ValidationInputType.NUMBER,
       fn: (property, processedValue, userInput) => {
         const isValid = Number(processedValue) >= min;
+
         if (isValid) return null;
+
         return formatErrorMessage(ErrorMessages.MIN, { userInput, min });
       },
     };
@@ -107,6 +117,7 @@ class Validators {
       type: ValidationInputType.NUMBER,
       fn: (property, processedValue, userInput) => {
         const isValid = Number(processedValue) <= max;
+
         if (isValid) return null;
 
         return formatErrorMessage(ErrorMessages.MAX, { userInput, max });
@@ -117,13 +128,14 @@ class Validators {
   static minDate(
     min: string,
     unit: OpUnitType = 'day',
-    includeBounds = false
+    includeBounds = false,
   ): TypedValidatorFn<ValidationInputType.DATE_TIME> {
     return {
       type: ValidationInputType.DATE_TIME,
       fn: (property, processedValue, userInput) => {
         const dateValue = dayjs(processedValue);
         const minDate = dayjs(min);
+
         if (!minDate.isValid()) return null;
 
         const isValid = includeBounds
@@ -143,19 +155,20 @@ class Validators {
   static maxDate(
     max: string,
     unit: OpUnitType = 'day',
-    includeBounds = false
+    includeBounds = false,
   ): TypedValidatorFn<ValidationInputType.DATE_TIME> {
     return {
       type: ValidationInputType.DATE_TIME,
       fn: (property, processedValue, userInput) => {
         const dateValue = dayjs(processedValue);
         const maxDate = dayjs(max);
+
         if (!maxDate.isValid()) return null;
 
         const isValid = includeBounds
           ? dateValue.isBefore(maxDate, unit)
           : dateValue.isSame(maxDate, unit) &&
-          dateValue.isBefore(maxDate, unit);
+            dateValue.isBefore(maxDate, unit);
 
         if (isValid) return null;
 
@@ -169,7 +182,7 @@ class Validators {
 
   static inRange(
     min: number,
-    max: number
+    max: number,
   ): TypedValidatorFn<ValidationInputType.NUMBER> {
     return {
       type: ValidationInputType.NUMBER,
@@ -192,7 +205,7 @@ class Validators {
     min: string,
     max: string,
     unit: OpUnitType = 'day',
-    includeBounds = false
+    includeBounds = false,
   ): TypedValidatorFn<ValidationInputType.DATE_TIME> {
     return {
       type: ValidationInputType.DATE_TIME,
@@ -201,15 +214,16 @@ class Validators {
         const minDate = dayjs(min);
         const maxDate = dayjs(max);
         const validRanges = minDate.isValid() && maxDate.isValid();
+
         if (!validRanges) return null;
 
         const isValid = includeBounds
           ? (dateValue.isBefore(maxDate, unit) ||
-            dateValue.isSame(maxDate, unit)) &&
-          (dateValue.isAfter(minDate, unit) ||
-            dateValue.isSame(minDate, unit))
+              dateValue.isSame(maxDate, unit)) &&
+            (dateValue.isAfter(minDate, unit) ||
+              dateValue.isSame(minDate, unit))
           : dateValue.isBefore(maxDate, unit) &&
-          dateValue.isAfter(minDate, unit);
+            dateValue.isAfter(minDate, unit);
 
         if (isValid) return null;
 
@@ -237,12 +251,12 @@ class Validators {
     type: ValidationInputType.STRING,
     fn: (property, processedValue, userInput) => {
       if (!isString(processedValue)) {
-        return formatErrorMessage(ErrorMessages.STRING, { userInput })
+        return formatErrorMessage(ErrorMessages.STRING, { userInput });
       }
 
       return null;
-    }
-  }
+    },
+  };
 
   static nonZero: TypedValidatorFn<ValidationInputType.NUMBER> = {
     type: ValidationInputType.NUMBER,
@@ -261,6 +275,7 @@ class Validators {
       if (!Number.isInteger(processedValue)) {
         return formatErrorMessage(ErrorMessages.WHOLE_NUMBER, { userInput });
       }
+
       return null;
     },
   };
@@ -268,8 +283,29 @@ class Validators {
   static image: TypedValidatorFn<ValidationInputType.FILE> = {
     type: ValidationInputType.FILE,
     fn: (property, processedValue, userInput) => {
-      const allowedType = ['jpg', 'png', 'gif', 'webp', 'flif', 'cr2', 'tif', 'bmp', 'jxr', 'psd', 'ico', 'bpg', 'jp2', 'jpm', 'jpx', 'heic', 'cur', 'dcm', 'avif'];
+      const allowedType = [
+        'jpg',
+        'png',
+        'gif',
+        'webp',
+        'flif',
+        'cr2',
+        'tif',
+        'bmp',
+        'jxr',
+        'psd',
+        'ico',
+        'bpg',
+        'jp2',
+        'jpm',
+        'jpx',
+        'heic',
+        'cur',
+        'dcm',
+        'avif',
+      ];
       const ext = (processedValue as ApFile).extension;
+
       return allowedType.includes(ext ?? '')
         ? null
         : formatErrorMessage(ErrorMessages.IMAGE, { property: property });
@@ -280,7 +316,7 @@ class Validators {
     type: ValidationInputType.STRING,
     fn: (property, processedValue, userInput) => {
       const pattern = new RegExp(
-        '^(([^<>()\\[\\].,;:\\s@"]+(\\.[^<>()\\[\\].,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z-0-9]+\\.)+[a-zA-Z]{2,}))$'
+        '^(([^<>()\\[\\].,;:\\s@"]+(\\.[^<>()\\[\\].,;:\\s@"]+)*)|(".+"))@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z-0-9]+\\.)+[a-zA-Z]{2,}))$',
       );
 
       if (isEmpty(processedValue)) {
@@ -300,12 +336,13 @@ class Validators {
     fn: (property, processedValue, userInput) => {
       const pattern = new RegExp(
         '^((https?|ftp|file)://)?' + // protocol
-        '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // domain name
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // port and path
-        '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // query string
-        '(\\#[-a-zA-Z\\d_]*)?$' // fragment locator
+          '((([a-zA-Z\\d]([a-zA-Z\\d-]*[a-zA-Z\\d])*)\\.)+[a-zA-Z]{2,}|' + // domain name
+          '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+          '(\\:\\d+)?(\\/[-a-zA-Z\\d%_.~+]*)*' + // port and path
+          '(\\?[;&a-zA-Z\\d%_.~+=-]*)?' + // query string
+          '(\\#[-a-zA-Z\\d_]*)?$', // fragment locator
       );
+
       if (isEmpty(processedValue)) return null;
 
       return pattern.test(String(processedValue))
@@ -320,6 +357,7 @@ class Validators {
       if (property.required && isNil(processedValue)) {
         return formatErrorMessage(ErrorMessages.ISO_DATE, { userInput });
       }
+
       return null;
     },
   };
@@ -330,6 +368,7 @@ class Validators {
       if (property.required && isNil(processedValue)) {
         return formatErrorMessage(ErrorMessages.FILE, { userInput });
       }
+
       return null;
     },
   };
@@ -338,8 +377,9 @@ class Validators {
     type: ValidationInputType.STRING,
     fn: (property, processedValue, userInput) => {
       const pattern = new RegExp(
-        '^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$'
+        '^\\+?\\d{1,4}?[-.\\s]?\\(?\\d{1,3}?\\)?[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,4}[-.\\s]?\\d{1,9}$',
       );
+
       if (isEmpty(processedValue)) return null;
 
       return pattern.test(String(processedValue))
@@ -356,9 +396,9 @@ class Validators {
           return values.includes(processedValue)
             ? null
             : formatErrorMessage(ErrorMessages.ONE_OF, {
-              userInput,
-              choices: values,
-            });
+                userInput,
+                choices: values,
+              });
         }
 
         return null;
@@ -367,20 +407,22 @@ class Validators {
   }
 
   static requireKeys(
-    values: string[]
+    values: string[],
   ): TypedValidatorFn<ValidationInputType.OBJECT> {
     return {
       type: ValidationInputType.OBJECT,
       fn: (property, processedValue, userInput) => {
         if (Array.isArray(values)) {
           const missingKeys = values.filter((key) => !processedValue[key]);
+
           return missingKeys.length
             ? formatErrorMessage(ErrorMessages.REQUIRE_KEYS, {
-              userInput,
-              keys: missingKeys.join(', '),
-            })
+                userInput,
+                keys: missingKeys.join(', '),
+              })
             : null;
         }
+
         return null;
       },
     };
@@ -388,4 +430,3 @@ class Validators {
 }
 
 export { ErrorMessages, formatErrorMessage, ValidationErrors, Validators };
-

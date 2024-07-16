@@ -1,5 +1,6 @@
-import { ValidationInputType } from '../../validators/types';
 import { Type } from '@sinclair/typebox';
+
+import { ValidationInputType } from '../../validators/types';
 import { TPropertyValue } from '../input/common';
 import { PropertyType } from '../input/property-type';
 import { LongTextProperty, ShortTextProperty } from '../input/text-property';
@@ -7,16 +8,20 @@ import { NumberProperty } from '../input/number-property';
 import { CheckboxProperty } from '../input/checkbox-property';
 import { StaticDropdownProperty } from '../input/dropdown/static-dropdown';
 import { StaticPropsValue } from '..';
+
 import { SecretTextProperty } from './secret-text-property';
 import { BasePieceAuthSchema } from './common';
 
-const CustomAuthProps = Type.Record(Type.String(), Type.Union([
-  ShortTextProperty,
-  LongTextProperty,
-  NumberProperty,
-  CheckboxProperty,
-  StaticDropdownProperty,
-]));
+const CustomAuthProps = Type.Record(
+  Type.String(),
+  Type.Union([
+    ShortTextProperty,
+    LongTextProperty,
+    NumberProperty,
+    CheckboxProperty,
+    StaticDropdownProperty,
+  ]),
+);
 
 export type CustomAuthProps = Record<
   string,
@@ -33,18 +38,16 @@ export const CustomAuthProperty = Type.Composite([
   Type.Object({
     props: CustomAuthProps,
   }),
-  TPropertyValue(Type.Unknown(), PropertyType.CUSTOM_AUTH)
-])
+  TPropertyValue(Type.Unknown(), PropertyType.CUSTOM_AUTH),
+]);
 
-export type CustomAuthProperty<
-  T extends CustomAuthProps
-> = BasePieceAuthSchema<StaticPropsValue<T>> & {
+export type CustomAuthProperty<T extends CustomAuthProps> = BasePieceAuthSchema<
+  StaticPropsValue<T>
+> & {
   props: T;
-} &
-  TPropertyValue<
+} & TPropertyValue<
     StaticPropsValue<T>,
     PropertyType.CUSTOM_AUTH,
     ValidationInputType.ANY,
     true
   >;
-

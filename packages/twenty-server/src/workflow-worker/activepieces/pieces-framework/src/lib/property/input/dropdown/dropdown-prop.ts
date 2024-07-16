@@ -1,13 +1,15 @@
-import { BasePropertySchema, TPropertyValue } from "../common";
-import { DropdownState } from "./common";
-import { PropertyContext } from "../../../context";
-import { Type } from "@sinclair/typebox";
-import { ValidationInputType } from "../../../validators/types";
-import { PropertyType } from "../property-type";
+import { Type } from '@sinclair/typebox';
+
+import { PropertyContext } from '../../../context';
+import { BasePropertySchema, TPropertyValue } from '../common';
+import { ValidationInputType } from '../../../validators/types';
+import { PropertyType } from '../property-type';
+
+import { DropdownState } from './common';
 
 type DynamicDropdownOptions<T> = (
   propsValue: Record<string, unknown>,
-  ctx: PropertyContext
+  ctx: PropertyContext,
 ) => Promise<DropdownState<T>>;
 
 export const DropdownProperty = Type.Composite([
@@ -24,10 +26,12 @@ export type DropdownProperty<T, R extends boolean> = BasePropertySchema & {
   options: DynamicDropdownOptions<T>;
 } & TPropertyValue<T, PropertyType.DROPDOWN, ValidationInputType.ANY, R>;
 
-
 export const MultiSelectDropdownProperty = Type.Composite([
   BasePropertySchema,
-  TPropertyValue(Type.Array(Type.Unknown()), PropertyType.MULTI_SELECT_DROPDOWN),
+  TPropertyValue(
+    Type.Array(Type.Unknown()),
+    PropertyType.MULTI_SELECT_DROPDOWN,
+  ),
   Type.Object({
     refreshers: Type.Array(Type.String()),
   }),
@@ -35,13 +39,13 @@ export const MultiSelectDropdownProperty = Type.Composite([
 
 export type MultiSelectDropdownProperty<
   T,
-  R extends boolean
+  R extends boolean,
 > = BasePropertySchema & {
   refreshers: string[];
   options: DynamicDropdownOptions<T>;
 } & TPropertyValue<
-  T[],
-  PropertyType.MULTI_SELECT_DROPDOWN,
-  ValidationInputType.ANY,
-  R
->;
+    T[],
+    PropertyType.MULTI_SELECT_DROPDOWN,
+    ValidationInputType.ANY,
+    R
+  >;

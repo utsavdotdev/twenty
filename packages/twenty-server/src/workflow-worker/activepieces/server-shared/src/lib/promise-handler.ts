@@ -1,7 +1,7 @@
-import { logger } from './logger'
+import { logger } from './logger';
 
 export function rejectedPromiseHandler(promise: Promise<unknown>) {
-    promise.catch((error) => {
-        logger.error(error)
-    })
+  promise.catch((error) => {
+    logger.error(error);
+  });
 }

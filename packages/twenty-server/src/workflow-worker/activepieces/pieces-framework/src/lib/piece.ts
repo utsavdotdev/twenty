@@ -1,10 +1,12 @@
 import {
-    EventPayload,
-    ParseEventResponse,
-    PieceCategory,
+  EventPayload,
+  ParseEventResponse,
+  PieceCategory,
 } from 'src/workflow-worker/activepieces/shared/src';
-import { Action } from './action/action';
+
 import { PieceBase, PieceMetadata } from './piece-metadata';
+
+import { Action } from './action/action';
 import { PieceAuthProperty } from './property/authentication';
 import { Trigger } from './trigger/trigger';
 
@@ -64,7 +66,7 @@ export class Piece<PieceAuth extends PieceAuthProperty = PieceAuthProperty>
 }
 
 export const createPiece = <PieceAuth extends PieceAuthProperty>(
-  params: CreatePieceParams<PieceAuth>
+  params: CreatePieceParams<PieceAuth>,
 ) => {
   return new Piece(
     params.displayName,
@@ -82,7 +84,7 @@ export const createPiece = <PieceAuth extends PieceAuthProperty>(
 };
 
 type CreatePieceParams<
-  PieceAuth extends PieceAuthProperty = PieceAuthProperty
+  PieceAuth extends PieceAuthProperty = PieceAuthProperty,
 > = {
   displayName: string;
   logoUrl: string;
@@ -106,6 +108,9 @@ type PieceEventProcessors = {
   }) => boolean;
 };
 
-type BackwardCompatiblePieceMetadata = Omit<PieceMetadata, 'name' | 'version' | 'authors'> & {
-  authors?: PieceMetadata['authors']
-}
+type BackwardCompatiblePieceMetadata = Omit<
+  PieceMetadata,
+  'name' | 'version' | 'authors'
+> & {
+  authors?: PieceMetadata['authors'];
+};

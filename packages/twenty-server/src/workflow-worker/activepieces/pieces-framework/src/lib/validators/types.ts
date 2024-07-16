@@ -8,7 +8,7 @@ export type ValidationErrors = Record<
 export type ValidatorFn = (
   property: PieceProperty,
   processedValue: any,
-  userInput: any
+  userInput: any,
 ) => string | null;
 
 export enum ValidationInputType {

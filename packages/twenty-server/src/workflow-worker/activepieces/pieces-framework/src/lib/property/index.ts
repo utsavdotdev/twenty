@@ -1,11 +1,15 @@
+import { Type } from '@sinclair/typebox';
+
 import { InputProperty } from './input';
 import { PieceAuthProperty } from './authentication';
-import { Type } from '@sinclair/typebox';
 
 // EXPORTED
 
 export { ApFile } from './input/file-property';
-export { DropdownProperty, MultiSelectDropdownProperty } from './input/dropdown/dropdown-prop';
+export {
+  DropdownProperty,
+  MultiSelectDropdownProperty,
+} from './input/dropdown/dropdown-prop';
 export { DropdownState } from './input/dropdown/common';
 export { DynamicProperties, DynamicProp } from './input/dynamic-prop';
 export { PropertyType } from './input/property-type';
@@ -32,31 +36,29 @@ export { CustomAuthProps } from './authentication/custom-auth-prop';
 export { OAuth2Property } from './authentication/oauth2-prop';
 export { FileProperty } from './input/file-property';
 export { BasicAuthProperty } from './authentication/basic-auth-prop';
-export { SecretTextProperty } from './authentication/secret-text-property'
+export { SecretTextProperty } from './authentication/secret-text-property';
 export { CustomAuthProperty } from './authentication/custom-auth-prop';
 
-export { JsonProperty } from './input/json-property'
-export const PieceProperty = Type.Union([InputProperty, PieceAuthProperty])
+export { JsonProperty } from './input/json-property';
+export const PieceProperty = Type.Union([InputProperty, PieceAuthProperty]);
 export type PieceProperty = InputProperty | PieceAuthProperty;
 
-export const PiecePropertyMap = Type.Record(Type.String(), PieceProperty)
+export const PiecePropertyMap = Type.Record(Type.String(), PieceProperty);
 export interface PiecePropertyMap {
   [name: string]: PieceProperty;
 }
 
-export const InputPropertyMap = Type.Record(Type.String(), InputProperty)
+export const InputPropertyMap = Type.Record(Type.String(), InputProperty);
 export interface InputPropertyMap {
   [name: string]: InputProperty;
 }
 
-export type PiecePropValueSchema<T extends PieceProperty> =
-  T extends undefined
+export type PiecePropValueSchema<T extends PieceProperty> = T extends undefined
   ? undefined
   : T extends { required: true }
-  ? T['valueSchema']
-  : T['valueSchema'] | undefined;
+    ? T['valueSchema']
+    : T['valueSchema'] | undefined;
 
 export type StaticPropsValue<T extends PiecePropertyMap> = {
   [P in keyof T]: PiecePropValueSchema<T[P]>;
 };
-

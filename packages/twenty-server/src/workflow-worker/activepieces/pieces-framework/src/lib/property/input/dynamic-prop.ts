@@ -1,16 +1,22 @@
-import { Type } from "@sinclair/typebox";
-import { StaticDropdownProperty, StaticMultiSelectDropdownProperty } from "./dropdown/static-dropdown";
-import { ShortTextProperty } from "./text-property";
-import { BasePropertySchema, TPropertyValue } from "./common";
-import { PropertyContext } from "../../context";
-import { ValidationInputType } from "../../validators/types";
-import { PropertyType } from "./property-type";
+import { Type } from '@sinclair/typebox';
+
+import { PropertyContext } from '../../context';
+import { ValidationInputType } from '../../validators/types';
+
+import { ShortTextProperty } from './text-property';
+import { BasePropertySchema, TPropertyValue } from './common';
+import { PropertyType } from './property-type';
+
+import {
+  StaticDropdownProperty,
+  StaticMultiSelectDropdownProperty,
+} from './dropdown/static-dropdown';
 
 export const DynamicProp = Type.Union([
   ShortTextProperty,
   StaticDropdownProperty,
   StaticMultiSelectDropdownProperty,
-])
+]);
 
 export type DynamicProp =
   | ShortTextProperty<boolean>
@@ -27,17 +33,15 @@ export const DynamicProperties = Type.Composite([
   }),
   BasePropertySchema,
   TPropertyValue(Type.Unknown(), PropertyType.DYNAMIC),
-])
+]);
 
-export type DynamicProperties<R extends boolean> = BasePropertySchema &
-{
+export type DynamicProperties<R extends boolean> = BasePropertySchema & {
   props: (
     propsValue: Record<string, DynamicPropsValue>,
-    ctx: PropertyContext
+    ctx: PropertyContext,
   ) => Promise<Record<string, DynamicProp>>;
   refreshers: string[];
-} &
-  TPropertyValue<
+} & TPropertyValue<
     DynamicPropsValue,
     PropertyType.DYNAMIC,
     ValidationInputType.ANY,

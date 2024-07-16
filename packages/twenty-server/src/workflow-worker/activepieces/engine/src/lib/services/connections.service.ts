@@ -1,94 +1,119 @@
-import { StatusCodes } from 'http-status-codes'
-import { AppConnection, AppConnectionStatus, AppConnectionType, BasicAuthConnectionValue, CloudOAuth2ConnectionValue, OAuth2ConnectionValueWithApp } from 'src/workflow-worker/activepieces/shared/src'
-import { ConnectionExpiredError, ConnectionLoadingError, ConnectionNotFoundError, ExecutionError, FetchError } from '../helper/execution-errors'
+import { StatusCodes } from 'http-status-codes';
 
-export const createConnectionService = ({ projectId, engineToken, apiUrl }: CreateConnectionServiceParams): ConnectionService => {
-    return {
-        async obtain(connectionName: string): Promise<ConnectionValue> {
-            const url = `${apiUrl}v1/worker/app-connections/${encodeURIComponent(connectionName)}?projectId=${projectId}`
+import {
+  AppConnection,
+  AppConnectionStatus,
+  AppConnectionType,
+  BasicAuthConnectionValue,
+  CloudOAuth2ConnectionValue,
+  OAuth2ConnectionValueWithApp,
+} from 'src/workflow-worker/activepieces/shared/src';
 
-            try {
-                const response = await fetch(url, {
-                    method: 'GET',
-                    headers: {
-                        Authorization: `Bearer ${engineToken}`,
-                    },
-                })
+import {
+  ConnectionExpiredError,
+  ConnectionLoadingError,
+  ConnectionNotFoundError,
+  ExecutionError,
+  FetchError,
+} from '../helper/execution-errors';
 
-                if (!response.ok) {
-                    return handleResponseError({
-                        connectionName,
-                        httpStatus: response.status,
-                    })
-                }
-                const connection: AppConnection = await response.json()
-                if (connection.status === AppConnectionStatus.ERROR) {
-                    throw new ConnectionExpiredError(connectionName)
-                }
-                return getConnectionValue(connection)
-            }
-            catch (e) {
-                if (e instanceof ExecutionError) {
-                    throw e
-                }
+export const createConnectionService = ({
+  projectId,
+  engineToken,
+  apiUrl,
+}: CreateConnectionServiceParams): ConnectionService => {
+  return {
+    async obtain(connectionName: string): Promise<ConnectionValue> {
+      const url = `${apiUrl}v1/worker/app-connections/${encodeURIComponent(
+        connectionName,
+      )}?projectId=${projectId}`;
 
-                return handleFetchError({
-                    url,
-                    cause: e,
-                })
-            }
-        },
-    }
-}
+      try {
+        const response = await fetch(url, {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${engineToken}`,
+          },
+        });
 
-const handleResponseError = ({ connectionName, httpStatus }: HandleResponseErrorParams): never => {
-    if (httpStatus === StatusCodes.NOT_FOUND.valueOf()) {
-        throw new ConnectionNotFoundError(connectionName)
-    }
+        if (!response.ok) {
+          return handleResponseError({
+            connectionName,
+            httpStatus: response.status,
+          });
+        }
+        const connection: AppConnection = await response.json();
 
-    throw new ConnectionLoadingError(connectionName)
-}
+        if (connection.status === AppConnectionStatus.ERROR) {
+          throw new ConnectionExpiredError(connectionName);
+        }
+
+        return getConnectionValue(connection);
+      } catch (e) {
+        if (e instanceof ExecutionError) {
+          throw e;
+        }
+
+        return handleFetchError({
+          url,
+          cause: e,
+        });
+      }
+    },
+  };
+};
+
+const handleResponseError = ({
+  connectionName,
+  httpStatus,
+}: HandleResponseErrorParams): never => {
+  if (httpStatus === StatusCodes.NOT_FOUND.valueOf()) {
+    throw new ConnectionNotFoundError(connectionName);
+  }
+
+  throw new ConnectionLoadingError(connectionName);
+};
 
 const handleFetchError = ({ url, cause }: HandleFetchErrorParams): never => {
-    throw new FetchError(url, cause)
-}
+  throw new FetchError(url, cause);
+};
 
 const getConnectionValue = (connection: AppConnection): ConnectionValue => {
-    switch (connection.value.type) {
-        case AppConnectionType.SECRET_TEXT:
-            return connection.value.secret_text
+  switch (connection.value.type) {
+    case AppConnectionType.SECRET_TEXT:
+      return connection.value.secret_text;
 
-        case AppConnectionType.CUSTOM_AUTH:
-            return connection.value.props
+    case AppConnectionType.CUSTOM_AUTH:
+      return connection.value.props;
 
-        default:
-            return connection.value
-    }
-}
+    default:
+      return connection.value;
+  }
+};
 
 type ConnectionValue =
-    | OAuth2ConnectionValueWithApp
-    | CloudOAuth2ConnectionValue
-    | BasicAuthConnectionValue
-    | Record<string, unknown>
-    | string
+  | OAuth2ConnectionValueWithApp
+  | CloudOAuth2ConnectionValue
+  | BasicAuthConnectionValue
+  | Record<string, unknown>
+  | string;
 
 type ConnectionService = {
-    obtain(connectionName: string): Promise<ConnectionValue>
-}
+  obtain(connectionName: string): Promise<ConnectionValue>;
+};
 
 type CreateConnectionServiceParams = {
-    projectId: string
-    apiUrl: string
-    engineToken: string
-}
+  projectId: string;
+  apiUrl: string;
+  engineToken: string;
+};
 
 type HandleResponseErrorParams = {
-    connectionName: string
-    httpStatus: number
-}
+  connectionName: string;
+  httpStatus: number;
+};
 
 type HandleFetchErrorParams = {
-    url: string
-    cause: unknown
-}
+  url: string;
+  cause: unknown;
+};

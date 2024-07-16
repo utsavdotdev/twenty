@@ -1,7 +1,9 @@
-import { Type } from "@sinclair/typebox";
-import { BasePropertySchema, TPropertyValue } from "./common";
-import { PropertyType } from "./property-type";
-import { ValidationInputType } from "../../validators/types";
+import { Type } from '@sinclair/typebox';
+
+import { ValidationInputType } from '../../validators/types';
+
+import { BasePropertySchema, TPropertyValue } from './common';
+import { PropertyType } from './property-type';
 
 export const JsonProperty = Type.Composite([
   BasePropertySchema,

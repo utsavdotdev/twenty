@@ -3,14 +3,17 @@ import dayjs from 'dayjs';
 import timezone from 'dayjs/plugin/timezone';
 import utc from 'dayjs/plugin/utc';
 import isBase64 from 'is-base64';
+
 import { isNil, isString } from 'src/workflow-worker/activepieces/shared/src';
+
 import { ApFile } from '../property/input/file-property';
+
 import { ProcessorFn } from './types';
 
 export class Processors {
   static json: ProcessorFn<string | undefined | null, unknown | undefined> = (
     property,
-    value
+    value,
   ) => {
     if (isNil(value)) {
       return value;
@@ -19,9 +22,11 @@ export class Processors {
       if (typeof value === 'object') {
         return value;
       }
+
       return JSON.parse(value);
     } catch (error) {
       console.error(error);
+
       return undefined;
     }
   };
@@ -36,6 +41,7 @@ export class Processors {
     if (value === '') {
       return NaN;
     }
+
     return Number(value);
   };
 
@@ -47,10 +53,11 @@ export class Processors {
       return value;
     }
     if (typeof value === 'object') {
-      return JSON.stringify(value)
+      return JSON.stringify(value);
     }
+
     return value.toString();
-  }
+  };
 
   static datetime: ProcessorFn<
     number | string | undefined | null,
@@ -59,18 +66,21 @@ export class Processors {
     dayjs.extend(utc);
     dayjs.extend(timezone);
     const dateTimeString = value;
+
     try {
       if (!dateTimeString) throw Error('Undefined input');
+
       return dayjs.tz(dateTimeString, 'UTC').toISOString();
     } catch (error) {
       console.error(error);
+
       return undefined;
     }
   };
 
   static file: ProcessorFn<unknown, Promise<ApFile | null>> = async (
     property,
-    urlOrBase64
+    urlOrBase64,
   ) => {
     // convertUrlOrBase64ToFile
     if (isNil(urlOrBase64) || !isString(urlOrBase64)) {
@@ -95,7 +105,7 @@ export class Processors {
           return new ApFile(
             filename + '.' + extension,
             Buffer.from(base64, 'base64'),
-            extension
+            extension,
           );
         }
       }
@@ -128,10 +138,11 @@ export class Processors {
       return new ApFile(
         filename,
         Buffer.from(fileResponse.data, 'binary'),
-        extension
+        extension,
       );
     } catch (e) {
       console.error(e);
+
       return null;
     }
   };

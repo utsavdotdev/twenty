@@ -1,17 +1,17 @@
-import { Static, Type } from '@sinclair/typebox'
-import { BaseModelSchema } from '../../common'
+import { Static, Type } from '@sinclair/typebox';
 
-export type FolderId = string
+import { BaseModelSchema } from '../../common';
+
+export type FolderId = string;
 
 export const Folder = Type.Object({
-    ...BaseModelSchema,
-    id: Type.String(),
-    projectId: Type.String(),
-    displayName: Type.String(),
-})
+  ...BaseModelSchema,
+  id: Type.String(),
+  projectId: Type.String(),
+  displayName: Type.String(),
+});
 
-export const UncategorizedFolderId = 'UNCATEGORIZED'
-export type Folder = Static<typeof Folder>
+export const UncategorizedFolderId = 'UNCATEGORIZED';
+export type Folder = Static<typeof Folder>;
 
-export type FolderDto = Folder & { numberOfFlows: number }
-
+export type FolderDto = Folder & { numberOfFlows: number };

@@ -1,78 +1,81 @@
-import * as Sentry from '@sentry/node'
-import { logger } from './logger'
-import { system } from './system/system'
-import { SharedSystemProp } from './system/system-prop'
+import * as Sentry from '@sentry/node';
 
-const sentryDsn = system.get(SharedSystemProp.SENTRY_DSN)
+import { logger } from './logger';
+
+import { system } from './system/system';
+import { SharedSystemProp } from './system/system-prop';
+
+const sentryDsn = system.get(SharedSystemProp.SENTRY_DSN);
 
 export const initializeSentry = () => {
-    if (sentryDsn) {
-        logger.info('Initializing Sentry')
-        Sentry.init({
-            dsn: sentryDsn,
-            beforeSend: (event) => {
-                if (event?.exception?.values?.[0].type === 'AxiosError') {
-                    return null
-                }
-                const value = event?.exception?.values?.[0]?.value
-                if (value && ['EXECUTION_TIMEOUT', 'ENTITY_NOT_FOUND'].includes(value)) {
-                    return null
-                }
-                return event
-            },
-        })
-    }
-}
+  if (sentryDsn) {
+    logger.info('Initializing Sentry');
+    Sentry.init({
+      dsn: sentryDsn,
+      beforeSend: (event) => {
+        if (event?.exception?.values?.[0].type === 'AxiosError') {
+          return null;
+        }
+        const value = event?.exception?.values?.[0]?.value;
+
+        if (
+          value &&
+          ['EXECUTION_TIMEOUT', 'ENTITY_NOT_FOUND'].includes(value)
+        ) {
+          return null;
+        }
+
+        return event;
+      },
+    });
+  }
+};
 
 export const exceptionHandler = {
-    handle: (e: unknown): void => {
-        logger.error(e)
-        if (sentryDsn) {
-            Sentry.captureException(e)
-        }
-    },
-}
-
-
+  handle: (e: unknown): void => {
+    logger.error(e);
+    if (sentryDsn) {
+      Sentry.captureException(e);
+    }
+  },
+};
 
 const ENRICH_ERROR_CONTEXT =
-    system.getBoolean(SharedSystemProp.ENRICH_ERROR_CONTEXT) ?? false
-
+  system.getBoolean(SharedSystemProp.ENRICH_ERROR_CONTEXT) ?? false;
 
 export const enrichErrorContext = ({
-    error,
-    key,
-    value,
+  error,
+  key,
+  value,
 }: EnrichErrorContextParams): unknown => {
-    if (!ENRICH_ERROR_CONTEXT) {
-        return error
+  if (!ENRICH_ERROR_CONTEXT) {
+    return error;
+  }
+
+  if (error instanceof Error) {
+    if ('context' in error && error.context instanceof Object) {
+      const enrichedError = Object.assign(error, {
+        ...error.context,
+        [key]: value,
+      });
+
+      return enrichedError;
+    } else {
+      const enrichedError = Object.assign(error, {
+        context: {
+          [key]: value,
+        },
+      });
+
+      return enrichedError;
     }
+  }
 
-    if (error instanceof Error) {
-        if ('context' in error && error.context instanceof Object) {
-            const enrichedError = Object.assign(error, {
-                ...error.context,
-                [key]: value,
-            })
-
-            return enrichedError
-        }
-        else {
-            const enrichedError = Object.assign(error, {
-                context: {
-                    [key]: value,
-                },
-            })
-
-            return enrichedError
-        }
-    }
-
-    return error
-}
+  return error;
+};
 
 type EnrichErrorContextParams = {
-    error: unknown
-    key: string
-    value: unknown
-}
+  error: unknown;
+  key: string;
+  value: unknown;
+};

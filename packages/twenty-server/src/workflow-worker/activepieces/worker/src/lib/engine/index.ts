@@ -1,7 +1,17 @@
-import { ExecutionMode, SharedSystemProp, system } from 'src/workflow-worker/activepieces/server-shared/src'
-import { isolateEngineRunner } from './isolate/isolate-engine-runner'
-import { threadEngineRunner } from './threads/thread-engine-runner'
+import {
+  ExecutionMode,
+  SharedSystemProp,
+  system,
+} from 'src/workflow-worker/activepieces/server-shared/src';
 
-const executionMode = system.getOrThrow<ExecutionMode>(SharedSystemProp.EXECUTION_MODE)
+import { isolateEngineRunner } from './isolate/isolate-engine-runner';
+import { threadEngineRunner } from './threads/thread-engine-runner';
 
-export const engineRunner = executionMode === ExecutionMode.UNSANDBOXED ? threadEngineRunner : isolateEngineRunner
+const executionMode = system.getOrThrow<ExecutionMode>(
+  SharedSystemProp.EXECUTION_MODE,
+);
+
+export const engineRunner =
+  executionMode === ExecutionMode.UNSANDBOXED
+    ? threadEngineRunner
+    : isolateEngineRunner;

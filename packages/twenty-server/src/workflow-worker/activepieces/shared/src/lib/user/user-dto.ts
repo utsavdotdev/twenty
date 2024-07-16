@@ -1,6 +1,7 @@
-import { Static, Type } from '@sinclair/typebox'
-import { User } from './user'
+import { Static, Type } from '@sinclair/typebox';
 
-export const UserResponse = Type.Omit(User, ['password'])
+import { User } from './user';
 
-export type UserResponse = Static<typeof UserResponse>
+export const UserResponse = Type.Omit(User, ['password']);
+
+export type UserResponse = Static<typeof UserResponse>;
