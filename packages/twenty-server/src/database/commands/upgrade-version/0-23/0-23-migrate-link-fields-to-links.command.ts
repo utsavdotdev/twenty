@@ -19,8 +19,6 @@ import { ObjectMetadataEntity } from 'src/engine/metadata-modules/object-metadat
 import { TwentyORMManager } from 'src/engine/twenty-orm/twenty-orm.manager';
 import { computeTableName } from 'src/engine/utils/compute-table-name.util';
 import { WorkspaceStatusService } from 'src/engine/workspace-manager/workspace-status/services/workspace-status.service';
-import { ViewService } from 'src/modules/view/services/view.service';
-import { ViewFieldWorkspaceEntity } from 'src/modules/view/standard-objects/view-field.workspace-entity';
 
 interface MigrateLinkFieldsToLinksCommandOptions {
   workspaceId?: string;
@@ -42,7 +40,7 @@ export class MigrateLinkFieldsToLinksCommand extends CommandRunner {
     private readonly typeORMService: TypeORMService,
     private readonly dataSourceService: DataSourceService,
     private readonly workspaceStatusService: WorkspaceStatusService,
-    private readonly viewService: ViewService,
+    // private readonly viewService: ViewService,
   ) {
     super();
   }
@@ -177,33 +175,34 @@ export class MigrateLinkFieldsToLinksCommand extends CommandRunner {
             });
 
             // Duplicate link field's views behaviour for new links field
-            await this.viewService.removeFieldFromViews({
-              workspaceId: workspaceId,
-              fieldId: tmpNewLinksField.id,
-            });
+            // await this.viewService.removeFieldFromViews({
+            //   workspaceId: workspaceId,
+            //   fieldId: tmpNewLinksField.id,
+            // });
 
-            const viewFieldRepository =
-              await this.twentyORMManager.getRepositoryForWorkspace(
-                workspaceId,
-                ViewFieldWorkspaceEntity,
-              );
-            const viewsWithDeprecatedField = await viewFieldRepository.find({
-              where: {
-                fieldMetadataId: fieldWithLinkType.id,
-                isVisible: true,
-              },
-            });
+            // const viewFieldRepository =
+            //   await this.twentyORMManager.getRepositoryForWorkspace(
+            //     workspaceId,
+            //     ViewFieldWorkspaceEntity,
+            //   );
+            // const viewsWithDeprecatedField = await viewFieldRepository.find({
+            //   where: {
+            //     fieldMetadataId: fieldWithLinkType.id,
+            //     isVisible: true,
+            //   },
+            // });
+            const viewsWithDeprecatedField = [] as any[];
 
-            await this.viewService.addFieldToViews({
-              workspaceId: workspaceId,
-              fieldId: tmpNewLinksField.id,
-              viewsIds: viewsWithDeprecatedField.map((view) => view.id),
-              positions: viewsWithDeprecatedField.reduce((acc, view) => {
-                acc[view.id] = view.position;
+            // await this.viewService.addFieldToViews({
+            //   workspaceId: workspaceId,
+            //   fieldId: tmpNewLinksField.id,
+            //   viewsIds: viewsWithDeprecatedField.map((view) => view.id),
+            //   positions: viewsWithDeprecatedField.reduce((acc, view) => {
+            //     acc[view.id] = view.position;
 
-                return acc;
-              }, []),
-            });
+            //     return acc;
+            //   }, []),
+            // });
 
             // Delete link field
             await this.fieldMetadataService.deleteOneField(
