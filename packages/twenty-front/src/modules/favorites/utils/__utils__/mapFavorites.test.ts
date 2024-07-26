@@ -19,7 +19,7 @@ describe('mapFavorites', () => {
         company: {
           id: '4',
           name: 'My Company',
-          domainName: 'example.com',
+          domainName: { primaryLinkUrl: 'example.com', primaryLinkLabel: '' },
         },
         position: 1,
       },

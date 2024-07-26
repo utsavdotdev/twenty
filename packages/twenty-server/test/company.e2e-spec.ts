@@ -223,7 +223,10 @@ describe('CompanyResolver (e2e)', () => {
           updateOneCompany(data: $data, where: $where) {
             id
             name
-            domainName
+            domainName {
+              primaryLinkLabek
+              primaryLinkUrl
+            }
             address {
               addressCity
             }

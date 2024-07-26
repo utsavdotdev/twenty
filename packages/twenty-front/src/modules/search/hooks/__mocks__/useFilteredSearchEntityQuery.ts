@@ -70,7 +70,10 @@ export const query = gql`
               primaryLinkLabel
               primaryLinkUrl
             }
-            domainName
+            domainName {
+              primaryLinkLabel
+              primaryLinkUrl
+            }
             annualRecurringRevenue {
               amountMicros
               currencyCode

@@ -60,7 +60,10 @@ linkedinLink
   primaryLinkLabel
   secondaryLinks
 }
-domainName
+domainName {
+  primaryLinkLabel
+  primaryLinkUrl
+}
 annualRecurringRevenue
 {
   amountMicros
@@ -135,7 +138,10 @@ linkedinLink
   primaryLinkLabel
   secondaryLinks
 }
-domainName
+domainName {
+  primaryLinkLabel
+  primaryLinkUrl
+}
 annualRecurringRevenue
 {
   amountMicros

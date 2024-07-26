@@ -36,7 +36,10 @@ const companyMocks = [
               primaryLinkLabel
               secondaryLinks
             }
-            domainName
+            domainName {
+              primaryLinkLabel
+              primaryLinkUrl
+            }
             annualRecurringRevenue {
               amountMicros
               currencyCode
