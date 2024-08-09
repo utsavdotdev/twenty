@@ -7,8 +7,8 @@ import {
   CreateOneServerlessFunctionItemMutationVariables,
 } from '~/generated-metadata/graphql';
 import { getOperationName } from '@apollo/client/utilities';
-import { FIND_MANY_SERVERLESS_FUNCTIONS } from '@/settings/serverless-functions/graphql/queries/findManyServerlessFunctions';
-import { CREATE_ONE_SERVERLESS_FUNCTION } from '@/settings/serverless-functions/graphql/mutations/createOneServerlessFunction';
+import { FIND_MANY_SERVERLESS_FUNCTIONS } from '@/settings/developers/serverless-functions/graphql/queries/findManyServerlessFunctions';
+import { CREATE_ONE_SERVERLESS_FUNCTION } from '@/settings/developers/serverless-functions/graphql/mutations/createOneServerlessFunction';
 
 export const useCreateOneServerlessFunction = () => {
   const apolloMetadataClient = useApolloMetadataClient();

@@ -1,4 +1,4 @@
-import { SettingsServerlessFunctionsNew } from '~/pages/settings/serverless-functions/SettingsServerlessFunctionsNew';
+import { SettingsServerlessFunctionsNew } from '~/pages/settings/developers/serverless-functions/SettingsServerlessFunctionsNew';
 import { graphqlMocks } from '~/testing/graphqlMocks';
 import { Meta, StoryObj } from '@storybook/react';
 import {

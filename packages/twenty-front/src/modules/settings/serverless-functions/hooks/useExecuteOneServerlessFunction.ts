@@ -1,6 +1,6 @@
 import { useApolloMetadataClient } from '@/object-metadata/hooks/useApolloMetadataClient';
 import { ApolloClient, useMutation } from '@apollo/client';
-import { EXECUTE_ONE_SERVERLESS_FUNCTION } from '@/settings/serverless-functions/graphql/mutations/executeOneServerlessFunction';
+import { EXECUTE_ONE_SERVERLESS_FUNCTION } from '@/settings/developers/serverless-functions/graphql/mutations/executeOneServerlessFunction';
 import {
   ExecuteOneServerlessFunctionMutation,
   ExecuteOneServerlessFunctionMutationVariables,

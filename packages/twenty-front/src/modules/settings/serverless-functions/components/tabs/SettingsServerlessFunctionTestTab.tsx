@@ -7,10 +7,10 @@ import { CoreEditorHeader } from '@/ui/input/code-editor/components/CodeEditorHe
 import { Button } from '@/ui/input/button/components/Button';
 import { LightCopyIconButton } from '@/object-record/record-field/components/LightCopyIconButton';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { settingsServerlessFunctionOutputState } from '@/settings/serverless-functions/states/settingsServerlessFunctionOutputState';
-import { settingsServerlessFunctionInputState } from '@/settings/serverless-functions/states/settingsServerlessFunctionInputState';
-import { settingsServerlessFunctionCodeEditorOutputParamsState } from '@/settings/serverless-functions/states/settingsServerlessFunctionCodeEditorOutputParamsState';
-import { SettingsServerlessFunctionsOutputMetadataInfo } from '@/settings/serverless-functions/components/SettingsServerlessFunctionsOutputMetadataInfo';
+import { settingsServerlessFunctionOutputState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionOutputState';
+import { settingsServerlessFunctionInputState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionInputState';
+import { settingsServerlessFunctionCodeEditorOutputParamsState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionCodeEditorOutputParamsState';
+import { SettingsServerlessFunctionsOutputMetadataInfo } from '@/settings/developers/serverless-functions/components/SettingsServerlessFunctionsOutputMetadataInfo';
 
 const StyledInputsContainer = styled.div`
   display: flex;

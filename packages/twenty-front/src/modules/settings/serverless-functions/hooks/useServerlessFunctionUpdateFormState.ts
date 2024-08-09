@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { getFileAbsoluteURI } from '~/utils/file/getFileAbsoluteURI';
 import { isDefined } from '~/utils/isDefined';
-import { useGetOneServerlessFunction } from '@/settings/serverless-functions/hooks/useGetOneServerlessFunction';
+import { useGetOneServerlessFunction } from '@/settings/developers/serverless-functions/hooks/useGetOneServerlessFunction';
 
 export type ServerlessFunctionNewFormValues = {
   name: string;

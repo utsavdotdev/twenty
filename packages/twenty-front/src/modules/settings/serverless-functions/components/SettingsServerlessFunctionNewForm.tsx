@@ -3,7 +3,7 @@ import { Section } from '@/ui/layout/section/components/Section';
 import { TextInput } from '@/ui/input/components/TextInput';
 import { TextArea } from '@/ui/input/components/TextArea';
 import styled from '@emotion/styled';
-import { ServerlessFunctionNewFormValues } from '@/settings/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
+import { ServerlessFunctionNewFormValues } from '@/settings/developers/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
 
 const StyledInputsContainer = styled.div`
   display: flex;

@@ -6,10 +6,10 @@ import { SettingsHeaderContainer } from '@/settings/components/SettingsHeaderCon
 import { SaveAndCancelButtons } from '@/settings/components/SaveAndCancelButtons/SaveAndCancelButtons';
 import { useNavigate } from 'react-router-dom';
 
-import { useCreateOneServerlessFunction } from '@/settings/serverless-functions/hooks/useCreateOneServerlessFunction';
+import { useCreateOneServerlessFunction } from '@/settings/developers/serverless-functions/hooks/useCreateOneServerlessFunction';
 import { DEFAULT_CODE } from '@/ui/input/code-editor/components/CodeEditor';
-import { ServerlessFunctionNewFormValues } from '@/settings/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
-import { SettingsServerlessFunctionNewForm } from '@/settings/serverless-functions/components/SettingsServerlessFunctionNewForm';
+import { ServerlessFunctionNewFormValues } from '@/settings/developers/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
+import { SettingsServerlessFunctionNewForm } from '@/settings/developers/serverless-functions/components/SettingsServerlessFunctionNewForm';
 import { isDefined } from '~/utils/isDefined';
 import { useState } from 'react';
 import { getSettingsPagePath } from '@/settings/utils/getSettingsPagePath';

@@ -3,8 +3,8 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   DEFAULT_OUTPUT_VALUE,
   settingsServerlessFunctionOutputState,
-} from '@/settings/serverless-functions/states/settingsServerlessFunctionOutputState';
-import { settingsServerlessFunctionCodeEditorOutputParamsState } from '@/settings/serverless-functions/states/settingsServerlessFunctionCodeEditorOutputParamsState';
+} from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionOutputState';
+import { settingsServerlessFunctionCodeEditorOutputParamsState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionCodeEditorOutputParamsState';
 
 export const SettingsServerlessFunctionTestTabEffect = () => {
   const settingsServerlessFunctionOutput = useRecoilValue(

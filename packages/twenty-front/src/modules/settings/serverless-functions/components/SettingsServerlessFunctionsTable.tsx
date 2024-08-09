@@ -3,10 +3,10 @@ import { Table } from '@/ui/layout/table/components/Table';
 import styled from '@emotion/styled';
 import { TableRow } from '@/ui/layout/table/components/TableRow';
 import { TableBody } from '@/ui/layout/table/components/TableBody';
-import { useGetManyServerlessFunctions } from '@/settings/serverless-functions/hooks/useGetManyServerlessFunctions';
-import { SettingsServerlessFunctionsFieldItemTableRow } from '@/settings/serverless-functions/components/SettingsServerlessFunctionsFieldItemTableRow';
+import { useGetManyServerlessFunctions } from '@/settings/developers/serverless-functions/hooks/useGetManyServerlessFunctions';
+import { SettingsServerlessFunctionsFieldItemTableRow } from '@/settings/developers/serverless-functions/components/SettingsServerlessFunctionsFieldItemTableRow';
 import { ServerlessFunction } from '~/generated-metadata/graphql';
-import { SettingsServerlessFunctionsTableEmpty } from '@/settings/serverless-functions/components/SettingsServerlessFunctionsTableEmpty';
+import { SettingsServerlessFunctionsTableEmpty } from '@/settings/developers/serverless-functions/components/SettingsServerlessFunctionsTableEmpty';
 import { getSettingsPagePath } from '@/settings/utils/getSettingsPagePath';
 import { SettingsPath } from '@/types/SettingsPath';
 

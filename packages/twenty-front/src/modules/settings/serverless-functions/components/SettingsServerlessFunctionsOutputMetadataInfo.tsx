@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import {
   DEFAULT_OUTPUT_VALUE,
   settingsServerlessFunctionOutputState,
-} from '@/settings/serverless-functions/states/settingsServerlessFunctionOutputState';
+} from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionOutputState';
 import styled from '@emotion/styled';
 import { IconSquareRoundedCheck } from 'twenty-ui';
 import { useTheme } from '@emotion/react';

@@ -7,13 +7,14 @@ import {
   IconColorSwatch,
   IconCurrencyDollar,
   IconDoorEnter,
+  IconFunction,
   IconHierarchy2,
   IconMail,
+  IconPalette,
   IconRocket,
   IconSettings,
   IconUserCircle,
   IconUsers,
-  IconFunction,
 } from 'twenty-ui';
 
 import { useAuth } from '@/auth/hooks/useAuth';
@@ -33,6 +34,10 @@ export const SettingsNavigationDrawerItems = () => {
   const isFunctionSettingsEnabled = useIsFeatureEnabled(
     'IS_FUNCTION_SETTINGS_ENABLED',
   );
+  const isComponentSettingsEnabled = useIsFeatureEnabled(
+    'IS_COMPONENT_SETTINGS_ENABLED',
+  );
+
   const isCRMMigrationEnabled = useIsFeatureEnabled('IS_CRM_MIGRATION_ENABLED');
 
   return (
@@ -98,18 +103,7 @@ export const SettingsNavigationDrawerItems = () => {
           Icon={IconHierarchy2}
           matchSubPages
         />
-        <SettingsNavigationDrawerItem
-          label="Developers"
-          path={SettingsPath.Developers}
-          Icon={IconCode}
-        />
-        {isFunctionSettingsEnabled && (
-          <SettingsNavigationDrawerItem
-            label="Functions"
-            path={SettingsPath.ServerlessFunctions}
-            Icon={IconFunction}
-          />
-        )}
+
         <SettingsNavigationDrawerItem
           label="Integrations"
           path={SettingsPath.Integrations}
@@ -120,6 +114,30 @@ export const SettingsNavigationDrawerItems = () => {
             label="CRM Migration"
             path={SettingsPath.CRMMigration}
             Icon={IconCode}
+          />
+        )}
+      </NavigationDrawerSection>
+
+      <NavigationDrawerSection>
+        <NavigationDrawerSectionTitle label="Developers" />
+
+        <SettingsNavigationDrawerItem
+          label="API & Webhooks"
+          path={SettingsPath.Developers}
+          Icon={IconCode}
+        />
+        {isFunctionSettingsEnabled && (
+          <SettingsNavigationDrawerItem
+            label="Functions"
+            path={SettingsPath.ServerlessFunctions}
+            Icon={IconFunction}
+          />
+        )}
+        {isFunctionSettingsEnabled && (
+          <SettingsNavigationDrawerItem
+            label="Components"
+            path={SettingsPath.ServerlessFunctions}
+            Icon={IconPalette}
           />
         )}
       </NavigationDrawerSection>

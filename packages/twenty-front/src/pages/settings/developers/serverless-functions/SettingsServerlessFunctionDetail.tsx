@@ -8,18 +8,18 @@ import { Section } from '@/ui/layout/section/components/Section';
 import { TabList } from '@/ui/layout/tab/components/TabList';
 import { useTabList } from '@/ui/layout/tab/hooks/useTabList';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { SettingsServerlessFunctionCodeEditorTab } from '@/settings/serverless-functions/components/tabs/SettingsServerlessFunctionCodeEditorTab';
-import { SettingsServerlessFunctionSettingsTab } from '@/settings/serverless-functions/components/tabs/SettingsServerlessFunctionSettingsTab';
-import { useServerlessFunctionUpdateFormState } from '@/settings/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
-import { SettingsServerlessFunctionTestTab } from '@/settings/serverless-functions/components/tabs/SettingsServerlessFunctionTestTab';
-import { useExecuteOneServerlessFunction } from '@/settings/serverless-functions/hooks/useExecuteOneServerlessFunction';
+import { SettingsServerlessFunctionCodeEditorTab } from '@/settings/developers/serverless-functions/components/tabs/SettingsServerlessFunctionCodeEditorTab';
+import { SettingsServerlessFunctionSettingsTab } from '@/settings/developers/serverless-functions/components/tabs/SettingsServerlessFunctionSettingsTab';
+import { useServerlessFunctionUpdateFormState } from '@/settings/developers/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
+import { SettingsServerlessFunctionTestTab } from '@/settings/developers/serverless-functions/components/tabs/SettingsServerlessFunctionTestTab';
+import { useExecuteOneServerlessFunction } from '@/settings/developers/serverless-functions/hooks/useExecuteOneServerlessFunction';
 import { SnackBarVariant } from '@/ui/feedback/snack-bar-manager/components/SnackBar';
 import { useSnackBar } from '@/ui/feedback/snack-bar-manager/hooks/useSnackBar';
-import { useUpdateOneServerlessFunction } from '@/settings/serverless-functions/hooks/useUpdateOneServerlessFunction';
+import { useUpdateOneServerlessFunction } from '@/settings/developers/serverless-functions/hooks/useUpdateOneServerlessFunction';
 import { useDebouncedCallback } from 'use-debounce';
-import { SettingsServerlessFunctionTestTabEffect } from '@/settings/serverless-functions/components/tabs/SettingsServerlessFunctionTestTabEffect';
-import { settingsServerlessFunctionOutputState } from '@/settings/serverless-functions/states/settingsServerlessFunctionOutputState';
-import { settingsServerlessFunctionInputState } from '@/settings/serverless-functions/states/settingsServerlessFunctionInputState';
+import { SettingsServerlessFunctionTestTabEffect } from '@/settings/developers/serverless-functions/components/tabs/SettingsServerlessFunctionTestTabEffect';
+import { settingsServerlessFunctionOutputState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionOutputState';
+import { settingsServerlessFunctionInputState } from '@/settings/developers/serverless-functions/states/settingsServerlessFunctionInputState';
 
 const TAB_LIST_COMPONENT_ID = 'serverless-function-detail';
 

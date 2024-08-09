@@ -1,8 +1,8 @@
 import { useApolloMetadataClient } from '@/object-metadata/hooks/useApolloMetadataClient';
 import { ApolloClient, useMutation } from '@apollo/client';
 import { getOperationName } from '@apollo/client/utilities';
-import { FIND_MANY_SERVERLESS_FUNCTIONS } from '@/settings/serverless-functions/graphql/queries/findManyServerlessFunctions';
-import { DELETE_ONE_SERVERLESS_FUNCTION } from '@/settings/serverless-functions/graphql/mutations/deleteOneServerlessFunction';
+import { FIND_MANY_SERVERLESS_FUNCTIONS } from '@/settings/developers/serverless-functions/graphql/queries/findManyServerlessFunctions';
+import { DELETE_ONE_SERVERLESS_FUNCTION } from '@/settings/developers/serverless-functions/graphql/mutations/deleteOneServerlessFunction';
 import {
   DeleteServerlessFunctionInput,
   DeleteOneServerlessFunctionMutation,

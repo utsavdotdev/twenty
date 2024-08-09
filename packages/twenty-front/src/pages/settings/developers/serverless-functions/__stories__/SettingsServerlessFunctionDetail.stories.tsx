@@ -2,7 +2,7 @@ import { DEFAULT_CODE } from '@/ui/input/code-editor/components/CodeEditor';
 import { Meta, StoryObj } from '@storybook/react';
 import { within } from '@storybook/test';
 import { graphql, http, HttpResponse } from 'msw';
-import { SettingsServerlessFunctionDetail } from '~/pages/settings/serverless-functions/SettingsServerlessFunctionDetail';
+import { SettingsServerlessFunctionDetail } from '~/pages/settings/developers/serverless-functions/SettingsServerlessFunctionDetail';
 import {
   PageDecorator,
   PageDecoratorArgs,

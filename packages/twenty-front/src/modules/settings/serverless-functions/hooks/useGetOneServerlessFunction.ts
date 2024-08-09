@@ -1,6 +1,6 @@
 import { useQuery } from '@apollo/client';
 import { useApolloMetadataClient } from '@/object-metadata/hooks/useApolloMetadataClient';
-import { FIND_ONE_SERVERLESS_FUNCTION } from '@/settings/serverless-functions/graphql/queries/findOneServerlessFunction';
+import { FIND_ONE_SERVERLESS_FUNCTION } from '@/settings/developers/serverless-functions/graphql/queries/findOneServerlessFunction';
 import {
   GetOneServerlessFunctionQuery,
   GetOneServerlessFunctionQueryVariables,

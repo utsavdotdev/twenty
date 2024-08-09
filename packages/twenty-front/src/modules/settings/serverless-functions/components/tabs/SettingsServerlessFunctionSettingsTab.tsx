@@ -1,11 +1,11 @@
 import { H2Title } from 'twenty-ui';
 import { Section } from '@/ui/layout/section/components/Section';
-import { ServerlessFunctionFormValues } from '@/settings/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
+import { ServerlessFunctionFormValues } from '@/settings/developers/serverless-functions/hooks/useServerlessFunctionUpdateFormState';
 import { Button } from '@/ui/input/button/components/Button';
 import { useState } from 'react';
 import { ConfirmationModal } from '@/ui/layout/modal/components/ConfirmationModal';
-import { SettingsServerlessFunctionNewForm } from '@/settings/serverless-functions/components/SettingsServerlessFunctionNewForm';
-import { useDeleteOneServerlessFunction } from '@/settings/serverless-functions/hooks/useDeleteOneServerlessFunction';
+import { SettingsServerlessFunctionNewForm } from '@/settings/developers/serverless-functions/components/SettingsServerlessFunctionNewForm';
+import { useDeleteOneServerlessFunction } from '@/settings/developers/serverless-functions/hooks/useDeleteOneServerlessFunction';
 import { useNavigate } from 'react-router-dom';
 
 export const SettingsServerlessFunctionSettingsTab = ({
