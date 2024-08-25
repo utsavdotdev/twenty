@@ -30,13 +30,6 @@ export default defineConfig(({ command, mode }) => {
     overlay: false,
   };
 
-  if (!isBuildCommand) {
-    checkers['eslint'] = {
-      lintCommand:
-        'eslint . --report-unused-disable-directives --max-warnings 0 --config .eslintrc.cjs',
-    };
-  }
-
   return {
     root: __dirname,
     cacheDir: '../../node_modules/.vite/packages/twenty-front',
