@@ -47475,6 +47475,7 @@ __metadata:
     vite: "npm:^5.4.0"
     vite-plugin-checker: "npm:^0.6.2"
     vite-plugin-dts: "npm:3.8.1"
+    vite-plugin-eslint2: "npm:^4.4.0"
     vite-plugin-svgr: "npm:^4.2.0"
     vite-tsconfig-paths: "npm:^4.2.1"
     vitest: "npm:1.4.0"
@@ -49129,6 +49130,25 @@ __metadata:
     vite:
       optional: true
   checksum: 10c0/0d61a6eae3c97d78efd74bc647fc94b446a8461ad97530e69b18173084e728411a1005d8ad97142508d1a8252b00cf9b849dd94e9fcc72560a69c92f48e9185c
+  languageName: node
+  linkType: hard
+
+"vite-plugin-eslint2@npm:^4.4.0":
+  version: 4.4.0
+  resolution: "vite-plugin-eslint2@npm:4.4.0"
+  dependencies:
+    "@rollup/pluginutils": "npm:^5.1.0"
+    chokidar: "npm:^3.6.0"
+    debug: "npm:^4.3.4"
+  peerDependencies:
+    "@types/eslint": ^7.0.0 || ^8.0.0 || ^9.0.0-0
+    eslint: ^7.0.0 || ^8.0.0 || ^9.0.0-0
+    rollup: ^2.0.0 || ^3.0.0 || ^4.0.0
+    vite: ^2.0.0 || ^3.0.0 || ^4.0.0 || ^5.0.0
+  peerDependenciesMeta:
+    rollup:
+      optional: true
+  checksum: 10c0/3666ec21e702851c8e1d437123fef3f1101f66f127ca986eb10146ebf969b2218bd3987ab95d4b91244a3a549031da3367124014f38263eb6ecb8c09b0ac228c
   languageName: node
   linkType: hard
 

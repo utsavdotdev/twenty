@@ -3,18 +3,15 @@ import wyw from '@wyw-in-js/vite';
 import path from 'path';
 import { defineConfig, loadEnv, searchForWorkspaceRoot } from 'vite';
 import checker from 'vite-plugin-checker';
+import eslint from 'vite-plugin-eslint2';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
 type Checkers = Parameters<typeof checker>[0];
 
-// https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
-  /*
-    Using explicit env variables, there is no need to expose all of them (security).
-  */
   const { REACT_APP_SERVER_BASE_URL, VITE_BUILD_SOURCEMAP } = env;
 
   const isBuildCommand = command === 'build';
@@ -47,6 +44,9 @@ export default defineConfig(({ command, mode }) => {
 
     plugins: [
       react({ jsxImportSource: '@emotion/react' }),
+      eslint({
+        cache: true,
+      }),
       tsconfigPaths({
         projects: ['tsconfig.json', '../twenty-ui/tsconfig.json'],
       }),
