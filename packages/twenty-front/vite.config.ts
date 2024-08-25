@@ -1,9 +1,9 @@
+import eslintPlugin from '@nabla/vite-plugin-eslint';
 import react from '@vitejs/plugin-react-swc';
 import wyw from '@wyw-in-js/vite';
 import path from 'path';
 import { defineConfig, loadEnv, searchForWorkspaceRoot } from 'vite';
 import checker from 'vite-plugin-checker';
-import eslint from 'vite-plugin-eslint2';
 import svgr from 'vite-plugin-svgr';
 import tsconfigPaths from 'vite-tsconfig-paths';
 
@@ -44,9 +44,7 @@ export default defineConfig(({ command, mode }) => {
 
     plugins: [
       react({ jsxImportSource: '@emotion/react' }),
-      eslint({
-        cache: true,
-      }),
+      eslintPlugin(),
       tsconfigPaths({
         projects: ['tsconfig.json', '../twenty-ui/tsconfig.json'],
       }),

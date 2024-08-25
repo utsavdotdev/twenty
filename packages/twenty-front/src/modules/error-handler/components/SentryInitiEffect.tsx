@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react';
 import * as Sentry from '@sentry/react';
 import { isNonEmptyString } from '@sniptt/guards';
+import { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { currentUserState } from '@/auth/states/currentUserState';
