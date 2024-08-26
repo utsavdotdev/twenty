@@ -38,6 +38,9 @@ export default defineConfig(({ command, mode }) => {
     };
   }
 
+  console.log(VITE_DISABLE_ESLINT_CHECKER);
+  console.log(VITE_DISABLE_ESLINT_CHECKER !== 'true');
+
   if (VITE_DISABLE_ESLINT_CHECKER !== 'true') {
     checkers['eslint'] = {
       lintCommand:
