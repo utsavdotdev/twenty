@@ -69,9 +69,12 @@ export const Favorites = () => {
                   avatarType,
                   link,
                   recordId,
+                  objectMetadataId,
                 } = favorite;
 
-                return (
+                if (!recordId && !objectMetadataId) return null;
+
+                return recordId ? (
                   <DraggableItem
                     key={id}
                     draggableId={id}
@@ -83,6 +86,28 @@ export const Favorites = () => {
                         Icon={() => (
                           <StyledAvatar
                             placeholderColorSeed={recordId}
+                            avatarUrl={avatarUrl}
+                            type={avatarType}
+                            placeholder={labelIdentifier}
+                            className="fav-avatar"
+                          />
+                        )}
+                        to={link}
+                      />
+                    }
+                  />
+                ) : (
+                  <DraggableItem
+                    key={id}
+                    draggableId={id}
+                    index={index}
+                    itemComponent={
+                      <StyledNavigationDrawerItem
+                        key={id}
+                        label={labelIdentifier}
+                        Icon={() => (
+                          <StyledAvatar
+                            placeholderColorSeed={objectMetadataId}
                             avatarUrl={avatarUrl}
                             type={avatarType}
                             placeholder={labelIdentifier}

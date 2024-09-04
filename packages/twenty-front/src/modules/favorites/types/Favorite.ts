@@ -8,6 +8,7 @@ export type Favorite = {
   avatarUrl: string;
   avatarType: AvatarType;
   link: string;
-  recordId: string;
+  recordId?: string;
+  objectMetadataId?: string;
   __typename: 'Favorite';
 };

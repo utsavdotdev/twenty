@@ -34,7 +34,7 @@ export const useRecordShowPage = (
   const { objectMetadataItems } = useObjectMetadataItems();
   const { labelIdentifierFieldMetadataItem } =
     useLabelIdentifierFieldMetadataItem({ objectNameSingular });
-  const { favorites, createFavorite, deleteFavorite } = useFavorites();
+  const { favorites, createFavoriteRecord, deleteFavorite } = useFavorites();
   const setEntityFields = useSetRecoilState(
     recordStoreFamilyState(objectRecordId),
   );
@@ -70,7 +70,7 @@ export const useRecordShowPage = (
     if (isFavorite) {
       deleteFavorite(correspondingFavorite.id);
     } else {
-      createFavorite(record, objectNameSingular);
+      createFavoriteRecord(record, objectNameSingular);
     }
   };
 

@@ -196,6 +196,7 @@ export const TIMELINE_ACTIVITY_STANDARD_FIELD_IDS = {
 
 export const FAVORITE_STANDARD_FIELD_IDS = {
   position: '20202020-dd26-42c6-8c3c-2a7598c204f6',
+  objectMetadataId: '20202020-eb9f-46c1-8ca4-3f0d94ece7df',
   workspaceMember: '20202020-ce63-49cb-9676-fdc0c45892cd',
   person: '20202020-c428-4f40-b6f3-86091511c41c',
   company: '20202020-cff5-4682-8bf9-069169e08279',

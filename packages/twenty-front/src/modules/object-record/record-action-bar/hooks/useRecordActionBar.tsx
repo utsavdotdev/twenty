@@ -36,7 +36,7 @@ export const useRecordActionBar = ({
   const [isDeleteRecordsModalOpen, setIsDeleteRecordsModalOpen] =
     useState(false);
 
-  const { createFavorite, favorites, deleteFavorite } = useFavorites();
+  const { createFavoriteRecord, favorites, deleteFavorite } = useFavorites();
 
   const handleFavoriteButtonClick = useRecoilCallback(
     ({ snapshot }) =>
@@ -59,13 +59,13 @@ export const useRecordActionBar = ({
         if (isFavorite) {
           deleteFavorite(foundFavorite.id);
         } else if (isDefined(selectedRecord)) {
-          createFavorite(selectedRecord, objectMetadataItem.nameSingular);
+          createFavoriteRecord(selectedRecord, objectMetadataItem.nameSingular);
         }
         callback?.();
       },
     [
       callback,
-      createFavorite,
+      createFavoriteRecord,
       deleteFavorite,
       favorites,
       objectMetadataItem.nameSingular,

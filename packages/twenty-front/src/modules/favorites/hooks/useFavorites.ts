@@ -1,5 +1,5 @@
-import { useMemo } from 'react';
 import { OnDragEndResponder } from '@hello-pangea/dnd';
+import { useMemo } from 'react';
 import { useRecoilValue } from 'recoil';
 
 import { currentWorkspaceMemberState } from '@/auth/states/currentWorkspaceMemberState';
@@ -57,36 +57,68 @@ export const useFavorites = () => {
   const getObjectRecordIdentifierByNameSingular =
     useGetObjectRecordIdentifierByNameSingular();
 
+  const getFavoriteRecord = (favorite: Favorite) => {
+    for (const relationField of favoriteRelationFieldMetadataItems) {
+      if (isDefined(favorite[relationField.name])) {
+        const relationObject = favorite[relationField.name];
+
+        const relationObjectNameSingular =
+          relationField.toRelationMetadata?.fromObjectMetadata.nameSingular ??
+          '';
+
+        const objectRecordIdentifier = getObjectRecordIdentifierByNameSingular(
+          relationObject,
+          relationObjectNameSingular,
+        );
+
+        return {
+          id: favorite.id,
+          recordId: objectRecordIdentifier.id,
+          position: favorite.position,
+          avatarType: objectRecordIdentifier.avatarType,
+          avatarUrl: objectRecordIdentifier.avatarUrl,
+          labelIdentifier: objectRecordIdentifier.name,
+          link: objectRecordIdentifier.linkToShowPage,
+        } as Favorite;
+      }
+    }
+
+    return favorite;
+  };
+
+  const getFavoriteObjectMetadata = (favorite: Favorite) => {
+    const objectMetadataItem = favoriteObjectMetadataItem.fields.find(
+      (fieldMetadataItem) =>
+        fieldMetadataItem.name === 'objectMetadataId' &&
+        isDefined(favorite.objectMetadataId),
+    );
+
+    if (!objectMetadataItem) {
+      return favorite;
+    }
+
+    const objectMetadataIdentifier = getObjectRecordIdentifierByNameSingular(
+      favorite.objectMetadataId,
+      CoreObjectNameSingular.ObjectMetadata,
+    );
+
+    return {
+      id: favorite.id,
+      objectMetadataId: favorite.objectMetadataId,
+      position: favorite.position,
+      avatarType: objectMetadataIdentifier.avatarType,
+      avatarUrl: objectMetadataIdentifier.avatarUrl,
+      labelIdentifier: objectMetadataIdentifier.name,
+      link: objectMetadataIdentifier.linkToShowPage,
+    } as Favorite;
+  };
+
   const favoritesSorted = useMemo(() => {
     return favorites
       .map((favorite) => {
-        for (const relationField of favoriteRelationFieldMetadataItems) {
-          if (isDefined(favorite[relationField.name])) {
-            const relationObject = favorite[relationField.name];
-
-            const relationObjectNameSingular =
-              relationField.toRelationMetadata?.fromObjectMetadata
-                .nameSingular ?? '';
-
-            const objectRecordIdentifier =
-              getObjectRecordIdentifierByNameSingular(
-                relationObject,
-                relationObjectNameSingular,
-              );
-
-            return {
-              id: favorite.id,
-              recordId: objectRecordIdentifier.id,
-              position: favorite.position,
-              avatarType: objectRecordIdentifier.avatarType,
-              avatarUrl: objectRecordIdentifier.avatarUrl,
-              labelIdentifier: objectRecordIdentifier.name,
-              link: objectRecordIdentifier.linkToShowPage,
-            } as Favorite;
-          }
-        }
-
-        return favorite;
+        return favorite.recordId
+          ? getFavoriteRecord(favorite)
+          : getFavoriteObjectMetadata(favorite);
       })
       .sort((a, b) => a.position - b.position);
   }, [
@@ -95,12 +127,20 @@ export const useFavorites = () => {
     getObjectRecordIdentifierByNameSingular,
   ]);
 
-  const createFavorite = (
+  const createFavoriteRecord = (
     targetRecord: Record<string, any>,
     targetObjectNameSingular: string,
   ) => {
     createOneFavorite({
       [targetObjectNameSingular]: targetRecord,
+      position: favorites.length + 1,
+      workspaceMemberId: currentWorkspaceMember?.id,
+    });
+  };
+
+  const createFavoriteObjectMetadata = (objectMetadataId: string) => {
+    createOneFavorite({
+      objectMetadataId,
       position: favorites.length + 1,
       workspaceMemberId: currentWorkspaceMember?.id,
     });
@@ -157,7 +197,8 @@ export const useFavorites = () => {
 
   return {
     favorites: favoritesSorted,
-    createFavorite,
+    createFavoriteRecord,
+    createFavoriteObjectMetadata,
     handleReorderFavorite,
     deleteFavorite,
   };

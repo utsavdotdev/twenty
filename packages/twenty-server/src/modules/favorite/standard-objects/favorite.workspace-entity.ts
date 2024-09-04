@@ -45,6 +45,15 @@ export class FavoriteWorkspaceEntity extends BaseWorkspaceEntity {
   })
   position: number;
 
+  @WorkspaceIsNullable()
+  @WorkspaceField({
+    standardId: FAVORITE_STANDARD_FIELD_IDS.objectMetadataId,
+    type: FieldMetadataType.UUID,
+    label: 'Object Metadata Id',
+    description: 'Favorite target object',
+  })
+  objectMetadataId: string;
+
   // Relations
   @WorkspaceRelation({
     standardId: FAVORITE_STANDARD_FIELD_IDS.workspaceMember,
