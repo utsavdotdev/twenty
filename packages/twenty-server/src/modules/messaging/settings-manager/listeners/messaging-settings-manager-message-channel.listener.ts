@@ -8,7 +8,10 @@ import { MessageQueue } from 'src/engine/core-modules/message-queue/message-queu
 import { MessageQueueService } from 'src/engine/core-modules/message-queue/services/message-queue.service';
 import { WorkspaceEventBatch } from 'src/engine/workspace-event-emitter/workspace-event.type';
 import { MessageChannelWorkspaceEntity } from 'src/modules/messaging/common/standard-objects/message-channel.workspace-entity';
-import { MessagingSettingsManagerReimportMessagesJob } from 'src/modules/messaging/settings-manager/jobs/messaging-settings-manager-reimport-messages.job';
+import {
+  MessagingSettingsManagerReimportMessagesJob,
+  MessagingSettingsManagerReimportMessagesJobData,
+} from 'src/modules/messaging/settings-manager/jobs/messaging-settings-manager-reimport-messages.job';
 
 @Injectable()
 export class MessagingSettingsManagerMessageChannelListener {
@@ -38,7 +41,7 @@ export class MessagingSettingsManagerMessageChannelListener {
       .map((eventPayload) => eventPayload.properties.after.id);
 
     if (messageChannelsToReimport.length) {
-      await this.messageQueueService.add(
+      await this.messageQueueService.add<MessagingSettingsManagerReimportMessagesJobData>(
         MessagingSettingsManagerReimportMessagesJob.name,
         {
           workspaceId: payload.workspaceId,
