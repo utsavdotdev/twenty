@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
-import { Any, EntityManager, Repository } from 'typeorm';
+import { Any, EntityManager } from 'typeorm';
 
-import { FieldMetadataEntity } from 'src/engine/metadata-modules/field-metadata/field-metadata.entity';
 import { ScopedWorkspaceContextFactory } from 'src/engine/twenty-orm/factories/scoped-workspace-context.factory';
 import { TwentyORMManager } from 'src/engine/twenty-orm/twenty-orm.manager';
 import { WorkspaceEventEmitter } from 'src/engine/workspace-event-emitter/workspace-event-emitter';
@@ -22,8 +20,6 @@ export class MatchParticipantService<
     private readonly workspaceEventEmitter: WorkspaceEventEmitter,
     private readonly twentyORMManager: TwentyORMManager,
     private readonly scopedWorkspaceContextFactory: ScopedWorkspaceContextFactory,
-    @InjectRepository(FieldMetadataEntity, 'metadata')
-    private readonly fieldMetadataRepository: Repository<FieldMetadataEntity>,
   ) {}
 
   private async getParticipantRepository(
